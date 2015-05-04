@@ -59,7 +59,7 @@
 		  }
 	.pagenav{
 		width: 300px;
-		margin: 70px 0 0 200px;
+		margin: 70px 0 0 270px;
 	}
 	</style>
 </head>
