@@ -41,6 +41,7 @@
 					</div>
 					<button type="submit" class="btn btn-default">Register</button>
 			</form>
+			<a href="/Admin" type="submit" class="btn btn-link">Back</button>
 		</div>
 	</div>
 </body>
