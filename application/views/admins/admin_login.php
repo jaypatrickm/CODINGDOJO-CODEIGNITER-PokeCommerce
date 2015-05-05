@@ -7,18 +7,28 @@
 		<link rel="stylesheet" href="/assets/css/bootstrap.css">
 		<link rel="stylesheet" href="/assets/css/bootstrap-theme.css">
 		<link rel="stylesheet" href="/assets/css/admin/admin_login.css">
+		<link rel="stylesheet" href="/assets/css/main.css">
 </head>
 <body>
-<?php
-	require('application/views/partials/adminnav.php');
-?>
+<?php require('application/views/partials/adminnav.php'); ?>
 	<div class="container">
-		<h4>Admin login Page</h4>
-		<form action ="admin_orders" method="post">
-		<p>Email:<input type="text" name="email"></p>
-		<p>Password:<input type="text" name="password"></p>
-		<input type="submit" value="Login" class="btn btn-primary">
-		</form> 
+		<div class="row">
+			<div class="col-sm-4">
+				<h4>Admin login Page</h4>
+				<a class="btn btn-link" href="#" role="button">No account yet? Register here.</a>
+				<form action ="admin_orders" method="post">
+					<div class="form-group">
+						<label for="admin_login_email">Email address</label>
+					    <input type="email" class="form-control" id="admin_login_email" name="email" placeholder="Enter email">
+					</div>
+					<div class="form-group">
+						<label for="admin_login_password">Password</label>
+						<input type="password" class="form-control" id="admin_login_password" placeholder="Password">
+					</div>
+					<button type="submit" class="btn btn-default">Submit</button>
+				</form> 
+			</div>
+		</div>
 	</div>
 </body>
 </html>
