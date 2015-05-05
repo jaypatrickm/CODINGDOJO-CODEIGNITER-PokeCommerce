@@ -56,6 +56,16 @@ class Mains extends CI_Controller {
 		$this->main->billing($this->input->post());
 		redirect('/');
 	}
+	public function show_product($id){
+		$current_pokemon = $this->main->getproductbyid($id);
+		$current_pokemonpic = $this->main->getproductpicbyid($id);
+		$current_pokemonpicmain = $this->main->getproductmainpic($id);
+		$this->load->view('products/show',array(
+			'current_pokemon' => $current_pokemon,
+			'current_pokemonpic' => $current_pokemonpic,
+			'current_pokemonpicmain' => $current_pokemonpicmain)
+		);
+	}
 }
 
 //end of main controller

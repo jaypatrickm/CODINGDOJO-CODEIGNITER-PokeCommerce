@@ -1,3 +1,18 @@
 body { 
 	padding-top: 70px; 
 }
+.bottom_left{
+	display: inline;
+
+}
+.block{
+	display: block;
+}
+.bottom_left img{
+	height: 50px;
+	width: 50px;
+}
+#main{
+	height: 300px;
+	width: 300px;
+}

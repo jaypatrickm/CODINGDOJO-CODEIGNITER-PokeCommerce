@@ -1,3 +1,5 @@
+<?php 
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +10,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 	<script type="text/javascript" src="/assets/js/jquery-2.1.3.min.js"></script>
 	<script type="text/javascript" src="/assets/js/bootstrap.js"></script>
+	<script>	
+		$(document).ready(function(){
+			$('.sub').click(function(){
+				$('#main').attr('src',$(this).attr('src'));
+			})
+		})
+	</script>
 	<link rel="stylesheet" href="/assets/css/bootstrap.css">
 	<link rel="stylesheet" href="/assets/css/bootstrap-theme.css">
 	<link rel="stylesheet" href="/assets/css/products/show.css">
@@ -19,31 +28,25 @@
 	?>
 	<div class = "container">
 		<a href="/">Go back</a>
-		<h3>Black Belt for Staff</h3>
-		<div class = left>
-			<img src="#">
-		</div>
+<?php 	foreach($current_pokemon as $key)
+		{?>
+		<h3><?= $key['name'] ?></h3>
+		<div class = 'left'>
+<?php 		foreach($current_pokemonpicmain as $pic)
+			{?><img class = "block" src="/<?=$pic['filename']?>" id="main">
+<?php		}?>			
+			<div class = "bottom_left">
+<?php			foreach($current_pokemonpic as $row)
+				{?>
+				<img src="/<?=$row['filename']?>" class="sub">
+<?php 			}?>
+			</div>
+		</div>	
 		<div class= "col-md-5 col-md-offset-6">
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-			proident, sunt in culpa qui officia deserunt mollit anim id est laborum. 
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-			proident, sunt in culpa qui officia deserunt mollit anim id est laborum. 
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-			<p>$5.00</p>
-			<form method = "post" action = "addtocart">
+			<p><?= $key['description']?></p>
+			<p>$<?= $key['price']?></p>
+<?php		}?>
+			<form method = "post" action = "/	addtocart">
 				<select name="quantity">
 					<option value="1">1</option>
 					<option value="2">2</option>

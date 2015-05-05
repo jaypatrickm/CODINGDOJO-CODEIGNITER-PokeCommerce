@@ -23,11 +23,13 @@
 				<div class="searchbox">
 					<h4>Categories</h4>
 					<ul>
-						<li><a href="">T shirts(25)</a></li>
-						<li><a href="">Shoes(35)</a></li>
-						<li><a href="">Cups(5)</a></li>
-						<li><a href="">Fruits(105)</a></li>
-						<li><a href=""><i>Show all</i></a></li>
+						<li><a href="">Fire</a></li>
+						<li><a href="">Electric</a></li>
+						<li><a href="">Grass</a></li>
+						<li><a href="">Poison</a></li>
+						<li><a href="">Water</a></li>
+						<li><a href="">Normal</a></li>
+						<li><a href="">Poison</a></li>
 					</ul>
 				</div>
 			</div>

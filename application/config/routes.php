@@ -64,4 +64,5 @@ $route['Admin_Adit_Product'] = 'admins/admin_edit_product';
 $route['shippingBilling'] = 'mains/shippingBilling';
 $route['Admin_Logout'] = 'admins/logout';
 $route['404_override'] = '';
+$route['addtocart'] = "mains/buytocart";
 $route['translate_uri_dashes'] = FALSE;

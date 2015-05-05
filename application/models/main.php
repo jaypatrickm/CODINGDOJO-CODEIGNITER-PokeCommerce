@@ -8,10 +8,12 @@ class Main extends CI_Model
 
 	function loadfrontproductsbyprice()
 	{
-		return $this->db->query("SELECT products.id, products.name, products.price, images.filename, images.product_id
+				return $this->db->query("SELECT products.id, products.name, products.price, images.filename, images.product_id
 								FROM products
 								LEFT JOIN images
-								ON products.id = images.product_id")->result_array();
+								ON products.id = images.product_id
+								GROUP BY name
+                                ORDER BY price ")->result_array();
 	}
 	
 	function loadfrontproductsbypopular()
@@ -19,9 +21,36 @@ class Main extends CI_Model
 		return $this->db->query("SELECT products.id, products.name, products.price, images.filename, images.product_id
 								FROM products
 								LEFT JOIN images
-								ON products.id = images.product_id")->result_array();
+								ON products.id = images.product_id
+								GROUP BY name
+								ORDER BY inventory_sold DESC")->result_array();
 	}
-
+	function loadfrontproductsbynewest()
+	{
+		return $this->db->query("SELECT products.id, products.name, products.price, products.inventory_count, images.filename, images.product_id
+								FROM products
+								LEFT JOIN images
+								ON products.id = images.product_id
+								GROUP BY name
+								ORDER BY products.id DESC")->result_array();
+	}
+	function getproductbyid($id)
+	{
+		return $this->db->query("SELECT products.id, products.name, products.price, products.inventory_count, products.description
+								FROM products
+								WHERE products.id = ?",array($id))->result_array();
+	}
+	function getproductpicbyid($id)
+	{
+		return $this->db->query("SELECT * FROM images
+								 WHERE product_id = ?",array($id))->result_array();
+	}
+	function getproductmainpic($id)
+	{
+		return $this->db->query("SELECT * FROM images
+								WHERE images.product_id = $id
+								AND main = 1 ")->result_array();
+	} 
 	function shipping($shipBill){
 		$query = "INSERT INTO shippings (first_name, last_name, address, address2, city, state, zipcode, created_at, updated_at) 
 		VALUES (?,?,?,?,?,?,?, NOW(), NOW())";
