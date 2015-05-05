@@ -16,8 +16,8 @@
 	<div class="row">
 		<div class="col-sm-10 col-sm-offset-1">
 			<h2>Register</h2>
-			<h3><?= $this->session->flashdata('errors') ?></h3>
 			<h3><?= $this->session->flashdata('msg') ?></h3>
+			<h3><?= $this->session->flashdata('errors') ?></h3>
 			<form action="/Admin_Register" method="post">
 					<div class="form-group">
 					<label for="username">Username*</label>
