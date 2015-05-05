@@ -67,14 +67,14 @@ if(ENVIRONMENT == 'production')
 	$db['default']['hostname'] = 'localhost';
 	$db['default']['username'] = 'root';
 	$db['default']['password'] = 'root';
-	$db['default']['database'] = 'pokecomm_schema';
+	$db['default']['database'] = 'pokecommerce_schema';
 }
 else
 {
 	$db['default']['hostname'] = 'localhost';
 	$db['default']['username'] = 'root';
 	$db['default']['password'] = 'root';
-	$db['default']['database'] = 'pokecomm_schema';
+	$db['default']['database'] = 'pokecommerce_schema';
 }
 
 
@@ -83,7 +83,7 @@ $db['default'] = array(
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => 'root',
-	'database' => 'pokecomm_schema',
+	'database' => 'pokecommerce_schema',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => TRUE,
