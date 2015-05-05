@@ -23,11 +23,10 @@ class Mains extends CI_Controller {
 		}
 		// $this->load->view('admin_orders');
 		//$this->load->view('product_listing');
-			$frontproductbyprice = $this->main->loadfrontproductsbyprice();
-			$this->load->view('products/product_listing',array(
-				'frontproductbyprice' => $frontproductbyprice)
-			);
-		$this->load->view('products/product_listing');
+		$frontproductbyprice = $this->main->loadfrontproductsbyprice();
+		$this->load->view('products/product_listing',array(
+			'frontproductbyprice' => $frontproductbyprice)
+		);
 	}
 
 	public function admin_login(){

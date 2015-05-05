@@ -58,3 +58,6 @@ body {
 	width: 300px;
 	margin: 70px 0 0 270px;
 }
+p{
+	display: inline-block;
+}
