@@ -38,13 +38,22 @@ class Admins extends CI_Controller {
 			else
 			{
 				$this->session->set_userdata('id', $result);
-				redirect('/Admin');
+				redirect('/Admin_Dashboard');
 			}	
 		}
 	}
 	public function admin_orders()
 	{
-		$this->load->view('admins/admin_orders');
+		if($this->session->userdata('id'))
+		{
+			$result = $this->Admin->get_orders();
+			$orders = array('orders' => $result);
+			$this->load->view('admins/admin_orders', $orders);
+		}
+		else 
+		{
+			redirect('/Admin');
+		}
 	}
 
 	public function admin_edit_product()
@@ -84,6 +93,27 @@ class Admins extends CI_Controller {
 			}
 				
 		}
+	}
+
+	public function dashboard()
+	{
+		if ($this->session->userdata('id'))
+		{
+			$result = $this->Admin->get_admin_by_id($this->session->userdata('id'));
+			$admin_data = array('admin' => $result);
+			$this->load->view('admins/admin_dashboard', $admin_data);
+		}
+		else
+		{
+			redirect('/Admin');
+		}
+	}
+
+	public function logout()
+	{
+		$this->session->unset_userdata('id');
+		$this->session->set_flashdata('msg', 'You are now logged off. Have a nice day!');
+		redirect('/Admin');
 	}
 }
 

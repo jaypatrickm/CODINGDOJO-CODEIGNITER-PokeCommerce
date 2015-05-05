@@ -1,6 +1,14 @@
 <?php
 class Admin extends CI_Model
 {
+	function get_orders()
+	{
+		return $this->db->query("SELECT * FROM orders")->result_array();
+	}
+	function get_admin_by_id($id)
+	{
+		return $this->db->query("SELECT * FROM admins WHERE id = ?", array($id))->row_array();
+	}
 	function get_user_by_email($post)
 	{ 
 		$result = $this->db->query("SELECT * FROM admins WHERE email = ?", array($this->input->post('email')))->row_array();

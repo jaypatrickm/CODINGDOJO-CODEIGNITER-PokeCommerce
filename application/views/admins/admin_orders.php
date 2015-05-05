@@ -36,12 +36,13 @@
 						<th>Total</th>
 						<th>Status</th>
 					</tr>
+					<?php foreach ($orders as $order) { ?>
 					<tr>
-						<td><a href="">100</a></td>
-						<td>Bob</td>
-						<td>07/21/2015</td>
+						<td><a href=""><?= $order['id'] ?></a></td>
+						<td><?= $order['user_id'] ?></td>
+						<td>0<?= $order['created_at'] ?></td>
 						<td>2342 West Dojo Way Bellevue WA 98022</td>
-						<td>$29.99</td>
+						<td><?= $order['total_price'] ?></td>
 						<td>
 							<select>
 								<option value="shipped">Shipped</option>
@@ -50,48 +51,7 @@
 							</select>
 						</td>
 					</tr>
-					<tr>
-						<td><a href="">101</a></td>
-						<td>James</td>
-						<td>07/21/2015</td>
-						<td>2342 West Dojo Way Bellevue WA 98022</td>
-						<td>$9.97</td>
-						<td>
-							<select>
-								<option value="shipped">Shipped</option>
-								<option value="order_process">Order in progress</option>
-								<option value="cancel">Canceled</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td><a href="">103</a></td>
-						<td>Sarah</td>
-						<td>07/21/2015</td>
-						<td>2342 West Dojo Way Bellevue WA 98022</td>
-						<td>$29.97</td>
-						<td>
-							<select>
-								<option value="shipped">Shipped</option>
-								<option value="order_process">Order in progress</option>
-								<option value="cancel">Canceled</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td><a href="">104</a></td>
-						<td>Zoey</td>
-						<td>07/21/2015</td>
-						<td>2342 West Dojo Way Bellevue WA 98022</td>
-						<td>$219.97</td>
-						<td>
-							<select>
-								<option value="shipped">Shipped</option>
-								<option value="order_process">Order in progress</option>
-								<option value="cancel">Canceled</option>
-							</select>
-						</td>
-					</tr>
+					<?php } ?>
 				</table>
 				<div id='pagination'>
 					<a href=""class = 'padding'>1</a>
