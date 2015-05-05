@@ -6,12 +6,19 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 </head>
 	<style type="text/css">
+	.container-fluid{
+		background-color: #800000;
+	}
+
 	.container{
 		text-align: center;
 		margin-top: 200px;
 	}
 	</style>
 <body>
+<?php
+	require('application/views/partials/adminnav.php');
+?>
 	<div class="container">
 		<h4>Admin login Page</h4>
 		<form action ="" method="post">

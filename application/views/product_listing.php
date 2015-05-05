@@ -64,6 +64,9 @@
 	</style>
 </head>
 <body>
+<?php
+		require('application/views/partials/partials/nav.php');
+?>
 	<div class="container">
 		<div class="header">
 			<h4>Dojo eCommerce</h4>

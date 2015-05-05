@@ -9,6 +9,9 @@
 		<link rel="stylesheet" href="/assets/css/admin/orders.css">
 </head>
 <body>
+<?php
+	require('application/views/partials/adminnav.php');
+?>
 	<div id="container">
 		<div class="row">
 			<div class="container">
