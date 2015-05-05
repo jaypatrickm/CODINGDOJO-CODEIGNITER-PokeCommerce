@@ -70,7 +70,7 @@
 </head>
 <body>
 <?php
-		require('application/views/partials/nav.php');
+	require('application/views/partials/nav.php');
 ?>
 	<div class="container">
 		<div class="searchbox">
@@ -97,16 +97,16 @@
 					<option value="Newest">Newest</option>
 				</select>
 			</div>
-			<a href=""><img src="/assets/images/pikachu.png">Pikachu</a>
-			<a href=""><img src="/assets/images/bulbasaur.png">Bulbasaur</a>
-			<a href=""><img src="/assets/images/charmander.png">Charmander</a>
-			<a href=""><img src="/assets/images/squirtle.png">Squirtle</a>
-			<a href=""><img src="/assets/images/jigglypuff.png">Jigglypuff</a>
-			<a href=""><img src="/assets/images/sandshrew.png">Sandshrew</a>
-			<a href=""><img src="/assets/images/caterpie.png">Caterpie</a>
-			<a href=""><img src="/assets/images/weedle.png">Weedle</a>
-			<a href=""><img src="/assets/images/poliwag.png">Poliwag</a>
-			<a href=""><img src="/assets/images/psyduck.png">Psyduck</a>
+			<a href="product"><img src="/assets/images/pikachu.png">Pikachu</a>
+			<a href="product"><img src="/assets/images/bulbasaur.png">Bulbasaur</a>
+			<a href="product"><img src="/assets/images/charmander.png">Charmander</a>
+			<a href="product"><img src="/assets/images/squirtle.png">Squirtle</a>
+			<a href="product"><img src="/assets/images/jigglypuff.png">Jigglypuff</a>
+			<a href="product"><img src="/assets/images/sandshrew.png">Sandshrew</a>
+			<a href="product"><img src="/assets/images/caterpie.png">Caterpie</a>
+			<a href="product"><img src="/assets/images/weedle.png">Weedle</a>
+			<a href="product"><img src="/assets/images/poliwag.png">Poliwag</a>
+			<a href="product"><img src="/assets/images/psyduck.png">Psyduck</a>
 			<div class="pagenav">
 				<a href="">1</a>
 				<a href="">2</a>
