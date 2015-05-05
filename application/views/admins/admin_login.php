@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title></title>
+	<title>Admin - Login</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script type="text/javascript" src="/assets/js/jquery-2.1.3.min.js"></script>
 		<script type="text/javascript" src="/assets/js/bootstrap.js"></script>
@@ -15,7 +15,7 @@
 		<div class="row">
 			<div class="col-sm-4">
 				<h4>Admin login Page</h4>
-				<a class="btn btn-link" href="#" role="button">No account yet? Register here.</a>
+				<a class="btn btn-link" href="/Admin_Registration" role="button">No account yet? Register here.</a>
 				<form action ="admin_orders" method="post">
 					<div class="form-group">
 						<label for="admin_login_email">Email address</label>
