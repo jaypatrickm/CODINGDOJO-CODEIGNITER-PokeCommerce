@@ -33,10 +33,6 @@ class Mains extends CI_Controller {
 		$this->load->view('admins/admin_login');
 	}
 
-	public function show_product(){
-		$this->load->view('products/show');
-	}
-
 	public function checkout(){
 		$cartitems = $this->main->get_cart();
 		$this->load->view('products/checkout',array(
