@@ -1,0 +1,19 @@
+#container{
+	margin-top: 70px;
+}
+
+input{
+	border-radius: 20px;
+	margin: 15px;
+}
+.col-md-9{
+	text-align: right;
+}
+#pagination{
+	text-align: center;
+	word-spacing: 30px;
+}
+.padding{
+	padding-right: 20px;
+	border-right: 3px solid black;
+}

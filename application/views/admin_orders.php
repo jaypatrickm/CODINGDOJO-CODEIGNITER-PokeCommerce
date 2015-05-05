@@ -1,34 +1,16 @@
 <html>
 <head>
-	<title></title>
+	<title>Admin - Orders</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script type="text/javascript" src="/assets/jQuery-1.11.2.js"></script>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		<script type="text/javascript" src="/assets/js/jquery-2.1.3.min.js"></script>
+		<script type="text/javascript" src="/assets/js/bootstrap.js"></script>
+		<link rel="stylesheet" href="/assets/css/bootstrap.css">
+		<link rel="stylesheet" href="/assets/css/bootstrap-theme.css">
+		<link rel="stylesheet" href="/assets/css/admin/orders.css">
 </head>
-	<style type="text/css">
-		#container{
-			margin-top: 70px;
-		}
-
-		input{
-			border-radius: 20px;
-			margin: 15px;
-		}
-		.col-md-9{
-			text-align: right;
-		}
-		#pagination{
-			text-align: center;
-			word-spacing: 30px;
-		}
-		.padding{
-			padding-right: 20px;
-			border-right: 3px solid black;
-		}
-	</style>
 <body>
 	<div id="container">
-		<div class = "row">
+		<div class="row">
 			<div class="container">
 				<div class ="col-md-3">
 					<input type="text" name="search" value="search">
