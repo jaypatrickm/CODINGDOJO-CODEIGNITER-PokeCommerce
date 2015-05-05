@@ -5,12 +5,19 @@
 		<script type="text/javascript" src="/assets/jQuery-1.11.2.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 		<style type="text/css">
+		.container-fluid{
+			background-color: #800000;
+		}
+
 		.container{
 			
 		}
 		</style>
 </head>
 <body>
+<?php
+	require('application/views/partials/adminnav.php');
+?>
 	<div class="container">
 		<h2>Edit Product - ID 41</h2>
 		<form action="" method="post">

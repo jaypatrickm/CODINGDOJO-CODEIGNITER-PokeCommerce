@@ -6,6 +6,10 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 </head>
 	<style type="text/css">
+		.container-fluid{
+			background-color: #800000;
+		}
+
 		#container{
 			margin-top: 70px;
 		}
@@ -27,6 +31,9 @@
 		}
 	</style>
 <body>
+<?php
+	require('application/views/partials/adminnav.php');
+?>
 	<div id="container">
 		<div class = "row">
 			<div class="container">

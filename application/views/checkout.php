@@ -27,6 +27,9 @@
 		}
 	</style>
 <body>
+<?php
+	require('application/views/partials/nav.php');
+?>
 	<div id="container">
 		<div id = "cart">
 			<div class = "row">
