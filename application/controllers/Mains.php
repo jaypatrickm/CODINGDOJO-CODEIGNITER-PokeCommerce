@@ -24,9 +24,10 @@ class Mains extends CI_Controller {
 		// $this->load->view('admin_orders');
 		//$this->load->view('product_listing');
 		$frontproductbyprice = $this->main->loadfrontproductsbyprice();
-		$this->load->view('products/product_listing',array(
-			'frontproductbyprice' => $frontproductbyprice)
-		);
+			$this->load->view('products/product_listing',array(
+				'frontproductbyprice' => $frontproductbyprice)
+			);
+		$this->load->view('products/product_listing');
 	}
 
 	public function admin_login(){
@@ -42,15 +43,6 @@ class Mains extends CI_Controller {
 		$this->load->view('products/checkout',array(
 			'cartitems' =>$cartitems)
 		);
-	}
-
-	public function admin_orders(){
-		$this->load->view('admins/admin_orders');
-	}
-
-	public function admin_edit_product(){
-		$this->load->view('admins/admin_edit_product');
-	}
 		public function buytocart(){
 
 		$quantity =  $this->input->post('quantity');
