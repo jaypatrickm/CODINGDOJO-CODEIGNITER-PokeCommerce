@@ -20,6 +20,7 @@ class Mains extends CI_Controller {
 		else
 		{
 			$this->session->set_userdata('carttotal',0);
+			break;
 		}
 		// $this->load->view('admin_orders');
 		//$this->load->view('product_listing');
