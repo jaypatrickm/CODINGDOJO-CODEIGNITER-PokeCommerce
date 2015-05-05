@@ -18,7 +18,7 @@
 		require('application/views/partials/nav.php');
 	?>
 	<div class = "container">
-		<a href="#">Go back</a>
+		<a href="/">Go back</a>
 		<h3>Black Belt for Staff</h3>
 		<div class = left>
 			<img src="#">
@@ -43,7 +43,7 @@
 			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 			<p>$5.00</p>
-			<form>
+			<form method = "post" action = "checkout">
 				<input type = "submit" name = "submit" value = "Buy">
 			</form>
 		</div>

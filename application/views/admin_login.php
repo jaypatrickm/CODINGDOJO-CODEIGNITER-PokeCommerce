@@ -21,7 +21,7 @@
 ?>
 	<div class="container">
 		<h4>Admin login Page</h4>
-		<form action ="" method="post">
+		<form action ="admin_orders" method="post">
 		<p>Email:<input type="text" name="email"></p>
 		<p>Password:<input type="text" name="password"></p>
 		<input type="submit" value="Login" class="btn btn-primary">

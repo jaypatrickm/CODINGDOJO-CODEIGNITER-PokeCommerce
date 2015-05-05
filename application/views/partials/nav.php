@@ -9,7 +9,7 @@
 					        <span class="icon-bar"></span>
 					        <span class="icon-bar"></span>
 					      </button>
-					      <a class="navbar-brand" href="#">PokeCommerce</a>
+					      <a class="navbar-brand" href="/">PokeCommerce</a>
 					    </div>
 
 				    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -21,7 +21,7 @@
 				        <button type="submit" class="btn btn-default">Submit</button>
 				      </form>
 			      	<ul class="nav navbar-nav navbar-right">
-			        	<li><a href="#">Shopping Cart ()</a></li>
+			        	<li><a href="checkout">Shopping Cart ()</a></li>
 			    	</ul>
 				    </div><!-- /.navbar-collapse -->
 				  </div><!-- /.container-fluid -->

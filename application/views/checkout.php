@@ -66,7 +66,7 @@
 						</tr>
 					</table>
 					<h4 class="right">Total: $64.97</h4>
-					<form action="" class="right">
+					<form action="/" class="right">
 						<input type="submit" value="Continue Shopping" class="btn btn-success">
 					<form>
 				</div>
