@@ -46,7 +46,7 @@
 					<h4 class="right">Total: $64.97</h4>
 					<form action="/" class="right">
 						<input type="submit" value="Continue Shopping" class="btn btn-success">
-					<form>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -54,7 +54,7 @@
 			<div class="row-fluid">
 				<div class="col-md-offset-2">
 					<h1>Shipping Information</h1>
-					<form action="" method="post">
+					<form action="shippingBilling" method="post">
 						<p>First Name:<input type="text" name="ship_firstname"></p>
 						<p>Last Name:<input type="text" name="ship_lastname"></p>
 						<p>Address:<input type="text" name="ship_address1"></p>
@@ -67,13 +67,9 @@
 						<p>First Name:<input type="text" name="bill_firstname"></p>
 						<p>Last Name:<input type="text" name="bill_lastname"></p>
 						<p>Address:<input type="text" name="bill_address1"></p>
-						<p>Address2:<input type="text" name="bill_address2"></p>
 						<p>City:<input type="text" name="bill_city"></p>
 						<p>State:<input type="text" name="bill_state"></p>
 						<p class="line_space">Zipcode<input type="text" name="bill_zipcode"></p>
-						<p>Card:<input type="text" name="card_num"></p>
-						<p>Security Code:<input type="text" name="card_security"></p>
-						<p>Expiration:<input type="text" name="card_exp_month" size="1">/<input type="text" name="card_exp_year" size="1"></p>
 						<input type="submit" value="Pay" class="btn btn-info">
 					</form>
 				</div>
