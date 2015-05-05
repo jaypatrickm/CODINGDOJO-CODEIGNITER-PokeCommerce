@@ -1,3 +1,6 @@
+<?php echo "<pre>";
+var_dump($frontproductbyprice);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,6 +48,8 @@
 							<option value="Newest">Newest</option>
 						</select>
 					</div>
+<?php 				foreach($frontproductbyprice as $key)
+					{ break;?>
 					<a href="product"><img src="/assets/images/pikachu.png">Pikachu</a>
 					<a href="product"><img src="/assets/images/bulbasaur.png">Bulbasaur</a>
 					<a href="product"><img src="/assets/images/charmander.png">Charmander</a>
@@ -55,6 +60,7 @@
 					<a href="product"><img src="/assets/images/weedle.png">Weedle</a>
 					<a href="product"><img src="/assets/images/poliwag.png">Poliwag</a>
 					<a href="product"><img src="/assets/images/psyduck.png">Psyduck</a>
+<?php				}?>
 					<div class="pagenav">
 						<a href="">1</a>
 						<a href="">2</a>

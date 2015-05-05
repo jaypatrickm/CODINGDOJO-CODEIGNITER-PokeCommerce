@@ -43,8 +43,13 @@
 			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 			<p>$5.00</p>
-			<form method = "post" action = "checkout">
-				<input type = "submit" name = "submit" value = "Buy">
+			<form method = "post" action = "addtocart">
+				<select name="quantity">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+				</select>
+				<input type = "submit" value = "Buy">
 			</form>
 		</div>
 		<div class = "col-md-6 col-md-offset-1">
