@@ -10,6 +10,11 @@
 	*{
 		/*outline: 1px dotted red;*/
 	}
+
+	body { 
+		padding-top: 70px; 
+	}
+
 	.container{
 		width: 970px;
 		height: auto;
@@ -65,14 +70,9 @@
 </head>
 <body>
 <?php
-		require('application/views/partials/partials/nav.php');
+		require('application/views/partials/nav.php');
 ?>
 	<div class="container">
-		<div class="header">
-			<h4>Dojo eCommerce</h4>
-			<span>Shopping cart (5)</span>
-
-		</div>
 		<div class="searchbox">
 			
 			<h4>Categories</h4>

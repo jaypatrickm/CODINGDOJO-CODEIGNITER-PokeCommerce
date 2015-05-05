@@ -5,6 +5,10 @@
 		<script type="text/javascript" src="/assets/jQuery-1.11.2.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 		<style type="text/css">
+		body { 
+			padding-top: 70px; 
+		}
+
 		.container-fluid{
 			background-color: #800000;
 		}
@@ -38,7 +42,7 @@
 	require('application/views/partials/adminnav.php');
 ?>
 	<div class="container">
-		<div class="container-fluid">
+		<div class="container-fluids">
 			<div class="row-fluid">
 				<div class="col-md-4">
 					<div id="user_info">
