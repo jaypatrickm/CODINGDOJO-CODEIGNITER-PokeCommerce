@@ -12,6 +12,20 @@ class Mains extends CI_Controller {
 	{
 		// $this->load->view('admin_orders');
 		//$this->load->view('product_listing');
+		if($this->session->userdata('carttotal'))
+		{
+			$this->session->userdata('carttotal');
+		}
+		else
+		{
+			$this->session->set_userdata('carttotal',0);
+		}
+		// $this->load->view('admin_orders');
+		//$this->load->view('product_listing');
+			$frontproductbyprice = $this->main->loadfrontproductsbyprice();
+			$this->load->view('products/product_listing',array(
+				'frontproductbyprice' => $frontproductbyprice)
+			);
 		$this->load->view('products/product_listing');
 	}
 
@@ -24,7 +38,10 @@ class Mains extends CI_Controller {
 	}
 
 	public function checkout(){
-		$this->load->view('products/checkout');
+		$cartitems = $this->main->get_cart();
+		$this->load->view('products/checkout',array(
+			'cartitems' =>$cartitems)
+		);
 	}
 
 	public function admin_orders(){
@@ -33,6 +50,12 @@ class Mains extends CI_Controller {
 
 	public function admin_edit_product(){
 		$this->load->view('admins/admin_edit_product');
+	}
+		public function buytocart(){
+
+		$quantity =  $this->input->post('quantity');
+		$this->session->set_userdata('carttotal', $this->session->userdata('carttotal') + $quantity);
+		redirect('product');
 	}
 }
 
