@@ -6,12 +6,11 @@
 	<meta name = "description" content ="PokeCommerce">
 	<!-- Latest compiled and minified CSS --> 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> 
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>	
-	<style type="text/css">
-		body { padding-top: 70px; }
-	</style>
+	<script type="text/javascript" src="/assets/js/jquery-2.1.3.min.js"></script>
+	<script type="text/javascript" src="/assets/js/bootstrap.js"></script>
+	<link rel="stylesheet" href="/assets/css/bootstrap.css">
+	<link rel="stylesheet" href="/assets/css/bootstrap-theme.css">
+	<link rel="stylesheet" href="/assets/css/products/show.css">
 </head>
 <body>
 	<?php

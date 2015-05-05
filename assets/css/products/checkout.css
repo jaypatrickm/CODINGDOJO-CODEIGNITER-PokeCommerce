@@ -1,0 +1,22 @@
+body { 
+	padding-top: 70px; 
+}
+#container{
+	margin-top: 60px;
+}
+.col-md-10{
+	padding-top: 10px;
+	text-align: right;
+}
+.noline{
+	text-decoration: none;
+}
+.space{
+	word-spacing: 100px;
+}
+.right{
+	text-align: right;
+}
+.line_space{
+	line-height: 20px;
+}

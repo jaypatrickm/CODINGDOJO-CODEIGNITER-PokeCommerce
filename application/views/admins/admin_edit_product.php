@@ -2,18 +2,11 @@
 <head>
 	<title></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script type="text/javascript" src="/assets/jQuery-1.11.2.js"></script>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-		<style type="text/css">
-		.container-fluid{
-			background-color: #800000;
-		}
-
-		body { 
-			padding-top: 70px; 
-		}
-
-		</style>
+		<script type="text/javascript" src="/assets/js/jquery-2.1.3.min.js"></script>
+		<script type="text/javascript" src="/assets/js/bootstrap.js"></script>
+		<link rel="stylesheet" href="/assets/css/bootstrap.css">
+		<link rel="stylesheet" href="/assets/css/bootstrap-theme.css">
+		<link rel="stylesheet" href="/assets/css/admin/edit_product.css">
 </head>
 <body>
 <?php

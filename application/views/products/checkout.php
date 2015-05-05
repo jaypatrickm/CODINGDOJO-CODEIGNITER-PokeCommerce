@@ -1,36 +1,13 @@
 <html>
 <head>
-	<title></title>
+	<title>Check Out</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script type="text/javascript" src="/assets/jQuery-1.11.2.js"></script>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		<script type="text/javascript" src="/assets/js/jquery-2.1.3.min.js"></script>
+		<script type="text/javascript" src="/assets/js/bootstrap.js"></script>
+		<link rel="stylesheet" href="/assets/css/bootstrap.css">
+		<link rel="stylesheet" href="/assets/css/bootstrap-theme.css">
+		<link rel="stylesheet" href="/assets/css/products/checkout.css">
 </head>
-	<style type="text/css">
-
-		body { 
-			padding-top: 70px; 
-		}
-
-		#container{
-			margin-top: 60px;
-		}
-		.col-md-10{
-			padding-top: 10px;
-			text-align: right;
-		}
-		.noline{
-			text-decoration: none;
-		}
-		.space{
-			word-spacing: 100px;
-		}
-		.right{
-			text-align: right;
-		}
-		.line_space{
-			line-height: 20px;
-		}
-	</style>
 <body>
 <?php
 	require('application/views/partials/nav.php');
