@@ -9,9 +9,10 @@
 			background-color: #800000;
 		}
 
-		.container{
-			
+		body { 
+			padding-top: 70px; 
 		}
+
 		</style>
 </head>
 <body>

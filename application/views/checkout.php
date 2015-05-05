@@ -6,6 +6,11 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 </head>
 	<style type="text/css">
+
+		body { 
+			padding-top: 70px; 
+		}
+
 		#container{
 			margin-top: 60px;
 		}
