@@ -26,7 +26,11 @@ class Mains extends CI_Controller {
 	}
 
 	public function admin_orders(){
-		$this->load->view('admin_orders')
+		$this->load->view('admin_orders');
+	}
+
+	public function admin_edit_product(){
+		$this->load->view('admin_edit_product');
 	}
 }
 

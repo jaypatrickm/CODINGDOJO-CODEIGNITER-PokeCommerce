@@ -54,5 +54,7 @@ $route['admin'] = 'mains/admin_login';
 $route['product'] = 'mains/show_product';
 $route['checkout'] = 'mains/checkout';
 $route['admin_orders'] = 'mains/admin_orders';
+$route['admin_edit_product'] = 'mains/admin_edit_product';
+$route['logout'] = 'mains/admin_login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
