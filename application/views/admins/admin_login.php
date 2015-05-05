@@ -14,16 +14,18 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-4">
-				<h4>Admin login Page</h4>
+				<h4>Admin Login Page</h4>
+				<h3><?= $this->session->flashdata('msg') ?></h3>
+				<h3><?= $this->session->flashdata('errors') ?></h3>
 				<a class="btn btn-link" href="/Admin_Registration" role="button">No account yet? Register here.</a>
-				<form action ="admin_orders" method="post">
+				<form action ="/Admin_Login" method="post">
 					<div class="form-group">
 						<label for="admin_login_email">Email address</label>
 					    <input type="email" class="form-control" id="admin_login_email" name="email" placeholder="Enter email">
 					</div>
 					<div class="form-group">
 						<label for="admin_login_password">Password</label>
-						<input type="password" class="form-control" id="admin_login_password" placeholder="Password">
+						<input type="password" class="form-control" id="admin_login_password" name="password" placeholder="Password">
 					</div>
 					<button type="submit" class="btn btn-default">Submit</button>
 				</form> 

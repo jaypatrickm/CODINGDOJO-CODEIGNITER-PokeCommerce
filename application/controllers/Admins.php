@@ -18,7 +18,30 @@ class Admins extends CI_Controller {
 	{
 		$this->load->view('admins/admin_login');
 	}
-
+	public function login_check()
+	{
+		if ($this->Admin->login_validation() == false)
+		{
+			$error = validation_errors();
+			$this->session->set_flashdata('msg', 'Something is not right, could not log in.');
+			$this->session->set_flashdata('errors', $error);
+			redirect('/Admin');
+		}
+		else 
+		{
+			$result = $this->Admin->get_user_by_email($this->input->post());	
+			if($result == false)
+			{
+				$this->session->set_flashdata('msg', 'Something went wrong, please try logging in again.');
+				redirect('/Admin');
+			}
+			else
+			{
+				$this->session->set_userdata('id', $result);
+				redirect('/Admin');
+			}	
+		}
+	}
 	public function admin_orders()
 	{
 		$this->load->view('admins/admin_orders');
@@ -61,9 +84,6 @@ class Admins extends CI_Controller {
 			}
 				
 		}
-		//echo $this->input->post('password_register');
-		//echo $this->input->post('confirm_password_register');
-		
 	}
 }
 

@@ -1,13 +1,30 @@
 <?php
 class Admin extends CI_Model
 {
+	function get_user_by_email($post)
+	{ 
+		$result = $this->db->query("SELECT * FROM admins WHERE email = ?", array($this->input->post('email')))->row_array();
+		if ($result)
+		{
+			$password_test = md5($this->input->post('password') . ' ' . $result['salt']);
+			if ($password_test == $result['password'])
+			{
+				return $result['id'];
+			} else 
+			{
+				$this->session->set_flashdata('errors', 'Password is incorrect.');
+				return false;
+			}
+		}
+		else 
+		{
+			$this->session->set_flashdata('errors', 'Email is not in database, please try a different email.');
+			return false;
+		}
+	}
 	function registration_validation()
 	{
 		$this->load->library('form_validation');
-		$this->form_validation->set_rules('username', 'Username', 'trim|required|is_unique[admins.username]',
-											array('required' => 'Select a username to register.',
-												  'is_unique' => 'Username is already in use, please select a different email.')
-		);
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email',
 											array('required' => 'An email is required to register.',
 												  'valid_email' => 'Must enter a valid email address. JSmith@gmail.com')
@@ -35,17 +52,35 @@ class Admin extends CI_Model
 	{
 		$username = $this->input->post('username');
 		$email = $this->input->post('email');
-		$password = $this->input->post('password');
 		$salt = bin2hex(openssl_random_pseudo_bytes(22));
-		$encrypted_password = md5($password . '' . $salt);
-		$values = array('username' => $username,
-						'email' => $email,
+		$encrypted_password = md5($this->input->post('password_register') . ' ' . $salt);
+		$values = array('email' => $email,
 						'password' => $encrypted_password,
 						'salt' => $salt
 						);
-		$query = "INSERT INTO admins (username, email, password, salt, created_at, updated_at) VALUES (?,?,?,?, NOW(), NOW())";
+		$query = "INSERT INTO admins (email, password, salt, created_at, updated_at) VALUES (?,?,?, NOW(), NOW())";
 		$result = $this->db->query($query, $values);
 		return $result;
+	}
+
+	function login_validation()
+	{
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email',
+											array('required' => 'An email is required to login.',
+												  'valid_email' => 'Must enter a valid email address. JSmith@gmail.com')
+		);
+		$this->form_validation->set_rules('password', 'Password', 'trim|required',
+											array('required' => 'Please enter a password.')
+		);
+		if($this->form_validation->run() == FALSE)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
 	}
 	/*
 	function get_all_course()

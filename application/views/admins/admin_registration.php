@@ -20,10 +20,6 @@
 			<h3><?= $this->session->flashdata('errors') ?></h3>
 			<form action="/Admin_Register" method="post">
 					<div class="form-group">
-					<label for="username">Username*</label>
-					<input type="text" class="form-control" name="username" id="username" placeholder="Enter Username" value="<?= set_value('username') ?>">
-					</div>
-					<div class="form-group">
 					<label for="email">Email*</label>
 					<input type="email" class="form-control" name="email" id="email" placeholder="Enter Email" value="<?= set_value('email') ?>">
 					</div>
