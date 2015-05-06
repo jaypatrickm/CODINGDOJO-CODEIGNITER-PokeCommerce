@@ -17,8 +17,8 @@
 				<h4>Admin Login Page</h4>
 				<h3><?= $this->session->flashdata('msg') ?></h3>
 				<h3><?= $this->session->flashdata('errors') ?></h3>
-				<a class="btn btn-link" href="/Admin_Registration" role="button">No account yet? Register here.</a>
-				<form action ="/Admin_Login" method="post">
+				<a class="btn btn-link" href="/admin/register" role="button">No account yet? Register here.</a>
+				<form action ="/admin_login" method="post">
 					<div class="form-group">
 						<label for="admin_login_email">Email address</label>
 					    <input type="email" class="form-control" id="admin_login_email" name="email" placeholder="Enter email">

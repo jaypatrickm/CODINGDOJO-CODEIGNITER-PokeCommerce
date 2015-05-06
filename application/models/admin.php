@@ -5,6 +5,15 @@ class Admin extends CI_Model
 	{
 		return $this->db->query("SELECT * FROM orders")->result_array();
 	}
+	function get_products($num)
+	{
+		$num = intval($num) - 1;
+		return $this->db->query("SELECT * FROM images LEFT JOIN products ON images.product_id = products.id WHERE main = 1 LIMIT $num,5")->result_array();
+	}
+	function get_products_count()
+	{
+		return $this->db->query("SELECT COUNT(*) FROM images LEFT JOIN products ON images.product_id = products.id WHERE main = 1")->result_array();
+	}
 	function get_admin_by_id($id)
 	{
 		return $this->db->query("SELECT * FROM admins WHERE id = ?", array($id))->row_array();

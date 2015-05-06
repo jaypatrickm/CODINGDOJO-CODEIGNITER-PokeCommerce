@@ -18,7 +18,7 @@
 			<h2>Register</h2>
 			<h3><?= $this->session->flashdata('msg') ?></h3>
 			<h3><?= $this->session->flashdata('errors') ?></h3>
-			<form action="/Admin_Register" method="post">
+			<form action="/admin_register" method="post">
 					<div class="form-group">
 					<label for="email">Email*</label>
 					<input type="email" class="form-control" name="email" id="email" placeholder="Enter Email" value="<?= set_value('email') ?>">
@@ -37,7 +37,7 @@
 					</div>
 					<button type="submit" class="btn btn-default">Register</button>
 			</form>
-			<a href="/Admin" type="submit" class="btn btn-link">Back</button>
+			<a href="/admin" type="submit" class="btn btn-link">Back</button>
 		</div>
 	</div>
 </body>

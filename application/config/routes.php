@@ -49,20 +49,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['Admin_Dashboard'] = 'admins/dashboard';
-$route['Admin_Registration'] = 'admins/admin_registration';
-$route['Admin_Login'] = 'admins/login_check';
-$route['Admin_Register'] = 'admins/register';
-$route['default_controller'] = 'mains';
-$route['Admin'] = 'Admins/Admin_login';
-$route['admin'] = 'Admins/Admin_login';
+$route['admin'] = 'admins/index';
+$route['admin/login'] = 'admins/login';
+$route['admin/dashboard'] = 'admins/dashboard';
+$route['admin_login'] = 'admins/login_check';
+$route['admin/logoff'] = 'admins/logout';
+$route['admin/register'] = 'admins/admin_registration';
+$route['admin_register'] = 'admins/register';
+$route['admin/dashboard/products'] = 'admins/product';
+$route['admin/dashboard/orders'] = 'admins/admin_orders';
+
+
+$route['admin_edit_product'] = 'admins/admin_edit_product';
 $route['product/(:any)'] = 'mains/show_product/$1';
 $route['checkout'] = 'mains/checkout';
-$route['Admin_Orders'] = 'admins/admin_orders';
-$route['admin_orders'] = 'admins/admin_orders';
-$route['Admin_Adit_Product'] = 'admins/admin_edit_product';
 $route['shippingBilling'] = 'mains/shippingBilling';
-$route['Admin_Logout'] = 'admins/logout';
+$route['default_controller'] = 'mains';
 $route['404_override'] = '';
 $route['addtocart'] = "mains/buytocart";
 $route['translate_uri_dashes'] = FALSE;
