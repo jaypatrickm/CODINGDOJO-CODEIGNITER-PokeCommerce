@@ -44,7 +44,7 @@ class Mains extends CI_Controller {
 
 		$quantity =  $this->input->post('quantity');
 		$this->session->set_userdata('carttotal', $this->session->userdata('carttotal') + $quantity);
-		redirect('product');
+		redirect('/');
 	}
 
 	public function shippingBilling(){

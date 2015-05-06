@@ -46,7 +46,7 @@
 			<p><?= $key['description']?></p>
 			<p>$<?= $key['price']?></p>
 <?php		}?>
-			<form method = "post" action = "/	addtocart">
+			<form method = "post" action = "/addtocart">
 				<select name="quantity">
 					<option value="1">1</option>
 					<option value="2">2</option>
