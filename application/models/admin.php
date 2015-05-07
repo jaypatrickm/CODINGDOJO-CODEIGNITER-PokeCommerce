@@ -7,12 +7,26 @@ class Admin extends CI_Model
 	}
 	function get_products($num)
 	{
-		$num = intval($num) - 1;
-		return $this->db->query("SELECT * FROM images LEFT JOIN products ON images.product_id = products.id WHERE main = 1 LIMIT $num,5")->result_array();
+		//num equals start at
+		/*
+			1 : 01
+			2 : 23
+			3 : 45
+			4 : 67
+			5 : 89
+			6 : 1011
+		*/
+		if ($num == 1)
+		{
+			$num = $num - 1;
+		} else {
+			$num = ($num - 1) * 3;
+		}
+		return $this->db->query("SELECT * FROM images LEFT JOIN products ON images.product_id = products.id WHERE main = 1 LIMIT $num,3")->result_array();
 	}
 	function get_products_count()
 	{
-		return $this->db->query("SELECT COUNT(*) FROM images LEFT JOIN products ON images.product_id = products.id WHERE main = 1")->result_array();
+		return $this->db->query("SELECT COUNT(*) FROM images LEFT JOIN products ON images.product_id = products.id WHERE main = 1 ORDER BY product_id ASC ")->result_array();
 	}
 	function get_admin_by_id($id)
 	{
@@ -89,6 +103,53 @@ class Admin extends CI_Model
 		);
 		$this->form_validation->set_rules('password', 'Password', 'trim|required',
 											array('required' => 'Please enter a password.')
+		);
+		if($this->form_validation->run() == FALSE)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+
+	function get_product_by_id($id)
+	{
+		return $this->db->query("SELECT * FROM products WHERE id = ?", array($id))->row_array();
+	}
+	function get_product_type($id)
+	{
+		return $this->db->query('SELECT element.name, product_types.product_id, element.id 
+								 FROM product_types 
+								 LEFT JOIN `types` AS element 
+								 ON product_types.type_id = element.id 
+								 WHERE product_types.product_id = ?', array($id))->result_array();
+	}
+	function get_types()
+	{
+		return $this->db->query('SELECT * FROM `types`')->result_array();
+	}
+	function get_product_images($id)
+	{
+		return $this->db->query('SELECT images.id, images.filename, images.updated_at, images.main  
+								 FROM images 
+								 WHERE product_id = ?', array($id))->result_array();
+	}
+	function update_product($product_id, $product_updates)
+	{	
+		$where = "id = ". $product_id; 
+		return $this->db->update('products', $product_updates, $where);
+	}
+
+	function add_validation()
+	{
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('name', 'Name', 'trim|required',
+											array('required' => 'Product needs a name.')
+		);
+		$this->form_validation->set_rules('description', 'Description', 'trim|required',
+											array('required' => 'Please enter a description.')
 		);
 		if($this->form_validation->run() == FALSE)
 		{

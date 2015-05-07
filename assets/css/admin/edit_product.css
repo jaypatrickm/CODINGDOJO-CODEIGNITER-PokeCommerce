@@ -5,3 +5,18 @@
 body { 
 	padding-top: 70px; 
 }
+
+.pokemon {
+	width: auto;
+	height: 152px;
+}
+input[type=checkbox]{
+	display: block;
+	margin: 10px auto 0;
+}
+.image-label {
+	display:block;
+}
+.add_type_btn{
+	margin-top: 5px;
+}

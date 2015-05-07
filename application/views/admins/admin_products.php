@@ -18,12 +18,7 @@
 					<input type="text" name="search" value="search">
 				</div>
 				<div class="col-md-9">
-					<select>
-						<option value="show_All">Show All</option>
-						<option value="order_in">Order in</option>
-						<option value="process">Process</option>
-						<option value="shipped">Shipped</option>
-					</select>
+					<a class="btn btn-primary" href="/admin/dashboard/products/add" role="button">Add New Product</a>
 				</div>
 				<table class="table table-bordered">
 					<tr>
@@ -41,22 +36,17 @@
 						<td><?= $product['name'] ?></td>
 						<td><?= $product['inventory_count'] ?></td>
 						<td><?= $product['inventory_sold'] ?></td>
-						<td><a class="btn btn-link" href="#" role="button">Edit</a> | <a class="btn btn-link" href="#" role="button">Delete</a></td>
+						<td><a class="btn btn-link" href="/admin/dashboard/products/edit/<?= $product['product_id'] ?>" role="button">Edit</a> | <a class="btn btn-link" href="#" role="button">Delete</a></td>
 					</tr>
 					<?php } ?>
 				</table>
 				<div id='pagination'>
-					<a href=""class = 'padding'>1</a>
-					<a href=""class = 'padding'>2</a>
-					<a href=""class = 'padding'>3</a>
-					<a href=""class = 'padding'>4</a>
-					<a href=""class = 'padding'>5</a>
-					<a href=""class = 'padding'>6</a>
-					<a href=""class = 'padding'>7</a>
-					<a href=""class = 'padding'>8</a>
-					<a href=""class = 'padding'>9</a>
-					<a href=""class = 'padding'>10</a>
-					<a href="">-></a>
+					<?php 
+						for($i=1; $i<=$pages; $i++)
+						{
+							echo '<a href="/admin/dashboard/products/' . $i . '" class="padding">'. $i .'</a>';
+						}
+					?>
 				</div>
 			</div>
 		</div>

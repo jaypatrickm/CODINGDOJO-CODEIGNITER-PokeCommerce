@@ -56,9 +56,12 @@ $route['admin_login'] = 'admins/login_check';
 $route['admin/logoff'] = 'admins/logout';
 $route['admin/register'] = 'admins/admin_registration';
 $route['admin_register'] = 'admins/register';
-$route['admin/dashboard/products'] = 'admins/product';
+$route['admin/dashboard/products'] = 'admins/product/1';
+$route['admin/dashboard/products/(:any)'] = 'admins/product/$1';
 $route['admin/dashboard/orders'] = 'admins/admin_orders';
-
+$route['admin/dashboard/products/edit/(:any)'] = 'admins/edit/$1';
+$route['admin/dashboard/products/add'] = 'admins/add_product';
+$route['admin/dashboard/products/add_product'] = 'admins/add_product_validation';
 
 $route['admin_edit_product'] = 'admins/admin_edit_product';
 $route['product/(:any)'] = 'mains/show_product/$1';
