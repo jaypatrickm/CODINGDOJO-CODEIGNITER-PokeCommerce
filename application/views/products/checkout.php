@@ -8,6 +8,31 @@
 		<link rel="stylesheet" href="/assets/css/bootstrap-theme.css">
 		<link rel="stylesheet" href="/assets/css/products/checkout.css">
 		<link rel="stylesheet" href="/assets/css/main.css">
+		<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+		<script>
+			$(document).ready(function(){
+				$('#same_address').on("change",function(){
+					if(this.checked){
+						$("[name='bill_firstname']").val($("[name='ship_firstname']").val());
+						$("[name='bill_lastname']").val($("[name='ship_lastname']").val());
+						$("[name='bill_address1']").val($("[name='ship_address1']").val());
+						$("[name='bill_city']").val($("[name='ship_city']").val());
+						$("[name='bill_state']").val($("[name='ship_state']").val());
+						$("[name='bill_zipcode']").val($("[name='ship_zipcode']").val());
+					}
+				});
+				$('#payment-form').submit(function(event){
+				var $form = $(this);
+				console.log($this);
+				// Disable the submit button to prevent repeated clicks
+				$form.find('button').prop('disabled', true);
+				Stripe.card.createToken($form, stripeResponseHandler);
+				// Prevent the form from submitting with the default action
+				return false;
+				});
+			});
+		Stripe.setPublishableKey('pk_test_tAa4asVHn9WlRlN4NfRTu8AC');
+		</script>
 </head>
 <body>
 <?php
@@ -71,7 +96,32 @@
 						<p>State:<input type="text" name="bill_state"></p>
 						<p class="line_space">Zipcode<input type="text" name="bill_zipcode"></p>
 						<input type="submit" value="Pay" class="btn btn-info">
-					</form>
+					  <span class="payment-errors"></span>
+
+					  <div class="form-row">
+					    <label>
+					      <span>Card Number</span>
+					      <input type="text" size="20" data-stripe="number"/>
+					    </label>
+					  </div>
+
+					  <div class="form-row">
+					    <label>
+					      <span>CVC</span>
+					      <input type="text" size="4" data-stripe="cvc"/>
+					    </label>
+					  </div>
+
+					  <div class="form-row">
+					    <label>
+					      <span>Expiration (MM/YYYY)</span>
+					      <input type="text" size="2" data-stripe="exp-month"/>
+					    </label>
+					    <span> / </span>
+					    <input type="text" size="4" data-stripe="exp-year"/>
+					  </div>
+
+					  <button type="submit">Submit Payment</button>
 				</div>
 			</div>
 		</div>

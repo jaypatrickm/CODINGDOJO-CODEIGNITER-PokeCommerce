@@ -52,8 +52,8 @@ class Main extends CI_Model
 								AND main = 1 ")->result_array();
 	} 
 	function shipping($shipBill){
-		$query = "INSERT INTO shippings (first_name, last_name, address, address2, city, state, zipcode, created_at, updated_at) 
-		VALUES (?,?,?,?,?,?,?, NOW(), NOW())";
+		$query = "INSERT INTO shippings (first_name, last_name, address, city, state, zipcode, created_at, updated_at) 
+		VALUES (?,?,?,?,?,?, NOW(), NOW())";
 		$values = array($shipBill['ship_firstname'], $shipBill['ship_lastname'], $shipBill['ship_address1'], $shipBill['ship_address2'], 
 			$shipBill['ship_city'], $shipBill['ship_state'], $shipBill['ship_zipcode']);
 
