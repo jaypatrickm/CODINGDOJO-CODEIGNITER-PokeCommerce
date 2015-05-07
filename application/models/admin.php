@@ -7,15 +7,6 @@ class Admin extends CI_Model
 	}
 	function get_products($num)
 	{
-		//num equals start at
-		/*
-			1 : 01
-			2 : 23
-			3 : 45
-			4 : 67
-			5 : 89
-			6 : 1011
-		*/
 		if ($num == 1)
 		{
 			$num = $num - 1;
@@ -151,6 +142,15 @@ class Admin extends CI_Model
 		$this->form_validation->set_rules('description', 'Description', 'trim|required',
 											array('required' => 'Please enter a description.')
 		);
+		$this->form_validation->set_rules('inventory_count', 'Inventory Count', 'trim|required|greater_than[0]|integer',
+											array('required' => 'Please enter an inventory count number.',
+												  'greater_than[0]' => 'Inventory count must be greater than 0.',
+												  'integer' => 'Inventory count must be a valid integer.')
+		);
+		$this->form_validation->set_rules('price', 'Price', 'trim|required|decimal',
+											array('required' => 'Please enter a price.',
+												  'decimal' => 'Please enter a valid price. Must be a decimal number. No dollar sign.')
+		);
 		if($this->form_validation->run() == FALSE)
 		{
 			return false;
@@ -160,20 +160,69 @@ class Admin extends CI_Model
 			return true;
 		}
 	}
-	/*
-	function get_all_course()
+	function add_prod_to_db($post,$filename)
 	{
-		return $this->db->query("SELECT * FROM courses")->result_array();
+		$query = "INSERT INTO products (name, description, inventory_count, price, inventory_sold, created_at, updated_at, display)
+					VALUES (?,?,?,?,?,NOW(),NOW(),?)";
+		if($this->input->post('display') == null)
+		{
+			$display = 1;
+		}
+
+		$values = array($this->input->post('name'), $this->input->post('description'), $this->input->post('inventory_count'), $this->input->post('price'), $this->input->post('inventory_sold'), $display);
+		$result = $this->db->query($query, $values);
+		if($result)
+		{
+			$query = "INSERT INTO product_types (product_id, type_id, created_at, updated_at)
+					  VALUES (?,?, NOW(), NOW())";
+			$last_product_id = $this->db->insert_id();
+			$values = array($last_product_id, $this->input->post('type'));
+			$result = $this->db->query($query,$values);
+			if ($result)
+			{
+				$query = "INSERT INTO images (filename, created_at, updated_at, product_id, main)
+						  VALUES(?,NOW(),NOW(),?,?)";
+				$values = array($filename, $last_product_id, 1);
+				return $this->db->query($query,$values);
+			}
+			else 
+			{
+				return false;
+			}
+		}	
+		else 
+		{
+			return false;
+		}
 	}
-	function get_course_by_id($course_id)
+	function delete($id)
 	{
-		return $this->db->query("SELECT * FROM courses WHERE id = ?", array($course_id)->row_array();
+		// $this->db->from("images");
+		// $this->db->join("products", "images.product_id = products.id");
+		// $this->db->join("product_types", "products.id = product_types.product_id");
+		// $this->db->where("product_types.product_id", $id);
+		// return $this->db->delete("product_types");
+
+		$query = "DELETE FROM images WHERE product_id = $id";
+		$result = $this->db->query($query);
+		if ($result)
+		{
+			$query = "DELETE FROM product_types WHERE product_id = $id";
+			$result = $this->db->query($query);
+			if ($result)
+			{
+				$query = "DELETE FROM products WHERE id = $id";
+				return $this->db->query($query);
+			}
+			else 
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
 	}
-	function add_course($course)
-	{
-		$query - "INSERT INTO Courses (title, description, created_at) VALUES (?,?,?)";
-		$values = array($course['title'], $course['description']. date("Y-m-d, H:i:s"));
-		return $this->db->query($query, $values);
-	}*/
 }
 ?>

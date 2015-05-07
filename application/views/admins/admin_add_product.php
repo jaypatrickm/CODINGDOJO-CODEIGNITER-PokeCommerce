@@ -16,7 +16,7 @@
 		<h2>Add Product</h2>
 		<h3><?= $this->session->flashdata('msg') ?></h3>
 		<h3><?= $this->session->flashdata('errors') ?></h3>
-		<form action="/admin/dashboard/products/add_product" method="post">
+		<form action="/admin/dashboard/products/add_product" method="post" enctype="multipart/form-data">
 			<div class="form-group">
 				<label for="name">Name</label>
 				<input type="text" class="form-control" id="name" name="name">
@@ -26,8 +26,16 @@
 				<textarea class="form-control" rows="10" cols="10" id="description" name="description"></textarea>
 			</div>
 			<div class="form-group">
+				<label for="inventory_count">Inventory Count</label>
+				<input type="text" class="form-control" id="inventory_count" name="inventory_count"></input>
+			</div>
+			<div class="form-group">
+				<label for="price">Price</label>
+				<input type="text" class="form-control" id="price" name="price"></input>
+			</div>
+			<div class="form-group">
 				<label for="description">Type</label>
-				<select class="form-control">
+				<select class="form-control" name="type">
 				<?php 
 				foreach ($types as $key => $value) {
 				?>
@@ -37,12 +45,17 @@
 				?>
 				</select>
 			</div>
+			<div class="checkbox">
+			    <label name="display">
+			        <input type="checkbox" name="display" value="0"> Do not display product 
+			    </label>
+			</div>
 			<div class="form-group">
 				<button type="button" class="btn btn-warning add_type_btn">Add Second Type</button>
 			</div>
 			<div class="form-group">
 				<label for="add_image">Add Image</label>
-				<input type="file" id="add_image">
+				<input type="file" id="add_image" name="userfile">
 				<p class="help-block">Select an image for upload.</p>
 			</div>
 			<a href="/admin/dashboard/products" class="btn btn-default" name="back">Go back</a>

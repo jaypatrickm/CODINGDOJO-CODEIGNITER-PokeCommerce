@@ -132,7 +132,7 @@
 			</div>
 			<div class="form-group">
 				<label for="add_image">Add Image</label>
-				<input type="file" id="add_image">
+				<input type="file" name="userfile" id="add_image">
 				<p class="help-block">Select an image for upload.</p>
 			</div>
 			<a href="/admin/dashboard/products" class="btn btn-default" name="back">Go back</a>

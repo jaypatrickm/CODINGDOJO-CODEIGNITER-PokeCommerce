@@ -16,6 +16,8 @@
 			<div class="container">
 				<div class ="col-md-3">
 					<input type="text" name="search" value="search">
+					<h3><?= $this->session->flashdata('msg') ?></h3>
+					<h3><?= $this->session->flashdata('errors') ?></h3>
 				</div>
 				<div class="col-md-9">
 					<a class="btn btn-primary" href="/admin/dashboard/products/add" role="button">Add New Product</a>
@@ -36,7 +38,7 @@
 						<td><?= $product['name'] ?></td>
 						<td><?= $product['inventory_count'] ?></td>
 						<td><?= $product['inventory_sold'] ?></td>
-						<td><a class="btn btn-link" href="/admin/dashboard/products/edit/<?= $product['product_id'] ?>" role="button">Edit</a> | <a class="btn btn-link" href="#" role="button">Delete</a></td>
+						<td><a class="btn btn-link" href="/admin/dashboard/products/edit/<?= $product['product_id'] ?>" role="button">Edit</a> | <a class="btn btn-link" href="/admin/dashboard/products/delete/<?= $product['product_id'] ?>" role="button">Delete</a></td>
 					</tr>
 					<?php } ?>
 				</table>
