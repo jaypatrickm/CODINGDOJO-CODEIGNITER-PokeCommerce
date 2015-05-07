@@ -55,12 +55,19 @@
 				<input type = "submit" value = "Buy">
 			</form>
 		</div>
-		<div class = "col-md-6 col-md-offset-1">
+		<div class = "col-md-6 col-md-offset-1" id="similar">
 			<h4>Similar Pokemon</h4>
-			<img src="#">
-			<img src="">
-			<img src="">
-			<img src="">
+<?php       foreach ($poketype1 as $sim1)
+			{?>
+			<a href="/product/<?=$sim1['id']?>"><img src="/<?=$sim1['filename']?>"></a>
+<?php		}?>
+<?php       if(isset($poketype2))
+			{
+				foreach ($poketype2 as $sim2)
+				{?>
+					<a href="/product/<?=$sim2['id']?>"><img src="/<?=$sim2['filename']?>"></a>
+<?php			}
+			}?>
 		</div>
 	</div>
 </body>
