@@ -29,16 +29,27 @@
 						<li><a href="">Poison</a></li>
 						<li><a href="">Water</a></li>
 						<li><a href="">Normal</a></li>
-						<li><a href="">Poison</a></li>
+						<li><a href="">Fairy</a></li>
+						<li><a href="">Ground</a></li>
+						<li><a href="">Bug</a></li>
+						<li><a href="">Flying</a></li>
+						<li><a href="">Fighting</a></li>
+						<li><a href="">Psychic</a></li>
+						<li><a href="">Rock</a></li>
+						<li><a href="">Steel</a></li>
+						<li><a href="">Ice</a></li>
+						<li><a href="">Ghost</a></li>
+						<li><a href="">Dragon</a></li>
+						<li><a href="">Show All</a></li>
 					</ul>
 				</div>
 			</div>
 			<div clas="col-sm-9">
 				<div class="content">
-					<h2>Tshirts(page 2)</h2>
+					<h2>(Pokemon type) page1</h2>
 					<a href="">first</a>
 					<a href="">prev</a>
-					<span>2</span>
+					<span>1</span>
 					<a href="">next</a>
 					<div id="sortbox">
 						Sorted by<select name="sort" id="sort">

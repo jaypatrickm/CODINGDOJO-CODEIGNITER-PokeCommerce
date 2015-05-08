@@ -67,6 +67,29 @@ class Main extends CI_Model
 			$shipBill['bill_city'], $shipBill['bill_state'], $shipBill['bill_zipcode']);
 		return $this->db->query($query, $values);
 	}
-
+	function getsimilarids($id)
+	{
+		return $this->db->query("SELECT products.id, types.id as type_id, types.name
+					FROM products
+					LEFT JOIN images
+					ON products.id = images.product_id
+					LEFT JOIN product_types
+					ON products.id = product_types.product_id
+					LEFT JOIN types
+					ON product_types.types_id = types.id
+					WHERE images.main = 1 AND products.id = ?",array($id))->result_array();
+	}
+	function getsimilartypes($productid,$typeid)
+	{
+		return $this->db->query("SELECT products.id, products.name, products.price, images.filename,types.name
+					FROM products
+					LEFT JOIN images
+					ON products.id = images.product_id
+					LEFT JOIN product_types
+					ON products.id = product_types.product_id
+					LEFT JOIN types
+					ON product_types.types_id = types.id
+					WHERE images.main = 1 AND types.id = ? AND products.id != ?",array($typeid,$productid))->result_array();
+	}
 }
 ?>
