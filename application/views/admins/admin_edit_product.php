@@ -24,7 +24,7 @@
 <?php require('application/views/partials/adminnav.php'); ?>
 	<div class="container">
 		<h2>Edit Product - ID <?= $product['id'] ?></h2>
-		<form action="" method="post">
+		<form action="/edi" method="post">
 			<div class="form-group">
 				<label for="name">Name</label>
 				<input type="text" class="form-control" id="name" name="name" value="<?= $product['name'] ?>">
@@ -33,21 +33,6 @@
 				<label for="description">Description</label>
 				<textarea class="form-control" rows="10" cols="10" id="description" name="description"><?= $product['description'] ?></textarea>
 			</div>
-
-			<?php
-				// foreach ($product_type as $product_type_key => $product_type_value) 
-				// 				{
-				// 						var_dump($product_type_key);
-				// 						var_dump($product_type_value);
-				// 						echo '<h1>hello</h1>';
-				// 				}
-					// var_dump($product_type_key);
-					// 					echo $i;
-					// 				if ($product_type_key == $i)
-					// 				{
-										
-					// 				}
-			?>
 			<?php 
 			for($i=0;$i<$type_count;$i++)
 			{

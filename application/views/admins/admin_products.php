@@ -46,7 +46,7 @@
 					<?php 
 						for($i=1; $i<=$pages; $i++)
 						{
-							echo '<a href="/admin/dashboard/products/' . $i . '" class="padding">'. $i .'</a>';
+							echo '<a href="/admin/dashboard/products/' . $i . '">'. $i .'</a>';
 						}
 					?>
 				</div>
