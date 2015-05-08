@@ -9,9 +9,10 @@
 	<link rel="stylesheet" href="/assets/css/bootstrap-theme.css">
 	<link rel="stylesheet" href="/assets/css/products/products_listing.css">
 	<link rel="stylesheet" href="/assets/css/main.css">
-	<style>
-	
-	</style>
+	<script type="text/javascript">
+		$(document).ready(function(){
+		});
+	</script>
 </head>
 <body>
 <?php
@@ -23,34 +24,16 @@
 				<div class="searchbox">
 					<h4>Categories</h4>
 					<ul>
-						<li><a href="">Fire</a></li>
-						<li><a href="">Electric</a></li>
-						<li><a href="">Grass</a></li>
-						<li><a href="">Poison</a></li>
-						<li><a href="">Water</a></li>
-						<li><a href="">Normal</a></li>
-						<li><a href="">Fairy</a></li>
-						<li><a href="">Ground</a></li>
-						<li><a href="">Bug</a></li>
-						<li><a href="">Flying</a></li>
-						<li><a href="">Fighting</a></li>
-						<li><a href="">Psychic</a></li>
-						<li><a href="">Rock</a></li>
-						<li><a href="">Steel</a></li>
-						<li><a href="">Ice</a></li>
-						<li><a href="">Ghost</a></li>
-						<li><a href="">Dragon</a></li>
-						<li><a href="">Show All</a></li>
+<?php 					foreach($alltypes as $key)
+						{?>
+						<li><a href="/products/types/<?=$key['id']?>" id="<?=$key['name']?>"><?=$key['name']?></a></li>
+<?php					}?>
+						<li><a href="/" id="all">Show All</a></li>
 					</ul>
 				</div>
 			</div>
 			<div clas="col-sm-9">
 				<div class="content">
-					<h2>(Pokemon type) page1</h2>
-					<a href="">first</a>
-					<a href="">prev</a>
-					<span>1</span>
-					<a href="">next</a>
 					<div id="sortbox">
 						Sorted by<select name="sort" id="sort">
 							<option value="price">Price</option>
@@ -58,24 +41,49 @@
 							<option value="Newest">Newest</option>
 						</select>
 					</div>
-<?php 				foreach($frontproductbyprice as $key)
-					{?>
+<?php 				shuffle($frontproductbyprice);
+					$count = 0;
+					foreach($frontproductbyprice as $key)
+					{
+						if($count == 0 && isset($key['type']))
+							{?>
+					<h2 id="type"><?= $key['type'] . ' ' . 'Types' ?></h2>
+					<a href="">prev</a>
+					<span>1</span>
+					<a href="">next</a>
+<?php						}
+						if($count == 0 && !isset($key['type']))
+							{?>
+					<h2 id="type"><?= "All Pokemans" ?></h2>
+					<a href="">prev</a>
+					<span>1</span>
+					<a href="">next</a>
+<?php 						}?>
 					<p>
-						<a href="product/<?=$key['id']?>"><img src="<?=$key['filename']?>"><?=$key['name']?></a>
+						<a href="/product/<?=$key['id']?>"><img src="/<?=$key['filename']?>"><?=$key['name']?></a>
 						$<?=$key['price']?>
+						<input type= "hidden" name="page_number" value = "0">
 					</p>
-<?php				}?>
+<?php				$count++;
+					}?>
 					<div class="pagenav">
-						<a href="">1</a>
-						<a href="">2</a>
-						<a href="">3</a>
-						<a href="">4</a>
-						<a href="">5</a>
-						<a href="">6</a>
-						<a href="">7</a>
-						<a href="">8</a>
-						<a href="">9</a>
-						<a href="">10</a>
+<?php 				if(array_key_exists("type", $frontproductbyprice[0]))
+					{
+						foreach($alltypes as $key)
+						{
+							for($i=1; $i<=$pages;$i++)
+							{?>
+						<a href="/products/<?=$key['type']?>/<?=$i?>"><?=$i?></a>
+<?php						}
+						}
+					}
+					else
+					{
+						for($i=1; $i<=$pages;$i++)
+						{?>						
+						<a href="/products/<?=$i?>"><?=$i?></a>
+<?php					}
+					}?>
 					</div>
 				</div>
 			</div>

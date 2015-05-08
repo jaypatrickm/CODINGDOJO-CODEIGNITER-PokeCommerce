@@ -6,16 +6,38 @@ class Main extends CI_Model
 		return $this->db->query("SELECT * FROM products")->result_array();
 	}
 
-	function loadfrontproductsbyprice()
+	function loadfrontproductsbyprice($num)
 	{
-				return $this->db->query("SELECT products.id, products.name, products.price, images.filename, images.product_id
+		if ($num == 1)
+		{
+			$num = $num - 1;
+		} else {
+			$num = ($num - 1) * 9;
+		}
+		return $this->db->query("SELECT products.id, products.name, products.price, images.filename, images.product_id
 								FROM products
 								LEFT JOIN images
 								ON products.id = images.product_id
+                                WHERE products.display = 1
 								GROUP BY name
-                                ORDER BY price ")->result_array();
+                                LIMIT $num,9")->result_array();
 	}
-	
+	function loadfrontproductscountall()
+	{
+		return $this->db->query("SELECT COUNT(*) FROM images LEFT JOIN products ON images.product_id = products.id WHERE main = 1 ORDER BY product_id ASC ")->result_array();
+	}
+	function loadtypeproductscount($typeid)
+	{
+		return $this->db->query("SELECT COUNT(*) 
+					FROM products
+					LEFT JOIN images
+					ON products.id = images.product_id
+					LEFT JOIN product_types
+					ON products.id = product_types.product_id
+					LEFT JOIN types
+					ON product_types.type_id = types.id
+					WHERE main = 1 AND types.id = ?",array($typeid))->result_array();
+	}
 	function loadfrontproductsbypopular()
 	{
 		return $this->db->query("SELECT products.id, products.name, products.price, images.filename, images.product_id
@@ -67,7 +89,11 @@ class Main extends CI_Model
 			$shipBill['bill_city'], $shipBill['bill_state'], $shipBill['bill_zipcode']);
 		return $this->db->query($query, $values);
 	}
-	function getsimilarids($id)
+	function getalltypes()
+	{
+		return $this->db->query("SELECT * FROM types")->result_array();	
+	}
+	function getsimilarids($id)	
 	{
 		return $this->db->query("SELECT products.id, types.id as type_id, types.name
 					FROM products
@@ -76,7 +102,7 @@ class Main extends CI_Model
 					LEFT JOIN product_types
 					ON products.id = product_types.product_id
 					LEFT JOIN types
-					ON product_types.types_id = types.id
+					ON product_types.type_id = types.id
 					WHERE images.main = 1 AND products.id = ?",array($id))->result_array();
 	}
 	function getsimilartypes($productid,$typeid)
@@ -88,8 +114,29 @@ class Main extends CI_Model
 					LEFT JOIN product_types
 					ON products.id = product_types.product_id
 					LEFT JOIN types
-					ON product_types.types_id = types.id
+					ON product_types.type_id = types.id
 					WHERE images.main = 1 AND types.id = ? AND products.id != ?",array($typeid,$productid))->result_array();
+	}
+	function getshowtypes($typeid)
+	{
+		// if ($num == 1)
+		// {
+		// 	$num = $num - 1;
+		// } else {
+		// 	$num = ($num - 1) * 9;
+		// }
+		return $this->db->query("SELECT products.id, products.name, products.price, images.filename, images.product_id, types.name as 'type'
+				FROM products
+				LEFT JOIN images
+				ON products.id = images.product_id
+				LEFT JOIN product_types
+				ON products.id = product_types.product_id
+				LEFT JOIN types
+				ON product_types.type_id = types.id
+				WHERE images.main = 1 AND types.id = ?
+				GROUP BY name
+	            ORDER BY price
+	            LIMIT 0,9",array($typeid))->result_array();
 	}
 }
 ?>

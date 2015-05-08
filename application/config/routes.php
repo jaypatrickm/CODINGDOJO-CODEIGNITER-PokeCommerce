@@ -64,12 +64,15 @@ $route['admin/dashboard/products/add'] = 'admins/add_product';
 $route['admin/dashboard/products/add_product'] = 'admins/add_product_validation';
 $route['admin/dashboard/products/delete/(:any)'] = 'admins/delete_product/$1';
 $route['admin/delete_product/(:any)'] = 'admins/delete/$1';
-
 $route['admin_edit_product'] = 'admins/admin_edit_product';
 $route['product/(:any)'] = 'mains/show_product/$1';
 $route['checkout'] = 'mains/checkout';
 $route['shippingBilling'] = 'mains/shippingBilling';
 $route['default_controller'] = 'mains';
+$route['products/(:any)'] = 'mains/products/$1';
 $route['404_override'] = '';
+$route['home'] = "/mains/products/1";
 $route['addtocart'] = "mains/buytocart";
+$route['allpoke'] = "mains/getshowall";
+$route['products/types/(:any)'] = "mains/getallpoketypes/$1";
 $route['translate_uri_dashes'] = FALSE;

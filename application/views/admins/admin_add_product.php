@@ -45,13 +45,13 @@
 				?>
 				</select>
 			</div>
-			<div class="form-group">
-				<button type="button" class="btn btn-warning add_type_btn">Add Type</button>
-			</div>
 			<div class="checkbox">
 			    <label name="display">
 			        <input type="checkbox" name="display" value="0"> Do not display product 
 			    </label>
+			</div>
+			<div class="form-group">
+				<button type="button" class="btn btn-warning add_type_btn">Add Second Type</button>
 			</div>
 			<div class="form-group">
 				<label for="add_image">Add Image</label>

@@ -10,7 +10,11 @@ class Mains extends CI_Controller {
 	}
 
 	public function index()
-	{
+	{	
+		redirect('/home');
+	}
+	public function products($id)
+	{	
 		// $this->load->view('admin_orders');
 		//$this->load->view('product_listing');
 		if($this->session->userdata('carttotal'))
@@ -23,20 +27,27 @@ class Mains extends CI_Controller {
 		}
 		// $this->load->view('admin_orders');
 		//$this->load->view('product_listing');
-		$frontproductbyprice = $this->main->loadfrontproductsbyprice();
 
-		$this->load->library('pagination');
-
-		$config['base_url'] = 'localhost.com/Mains/index';
-		$config['total_rows'] = $frontproductbyprice;
-		$config['per_page'] = 9;
-		$this->pagination->initialize($config);
-
-			$this->load->view('products/product_listing',array(
-				'frontproductbyprice' => $frontproductbyprice)
+		$result_count = $this->main->loadfrontproductscountall();
+		$count = 0;
+		foreach ($result_count as $key)
+		{
+			foreach ($key as $int)
+			{
+				$count = intval($int);
+			}
+		}
+		$pages = $count /9;
+		$pages = ceil($pages);
+		$frontproductbyprice = $this->main->loadfrontproductsbyprice($id);
+		$alltypes = $this->main->getalltypes();
+		$products = array(
+			'frontproductbyprice' => $frontproductbyprice,
+			'pages' => $pages,
+			'alltypes' => $alltypes
 			);
+		$this->load->view('products/product_listing',$products);
 	}
-
 	public function admin_login(){
 		$this->load->view('admins/admin_login');
 	}
@@ -92,6 +103,27 @@ class Mains extends CI_Controller {
 				'poketype1' => $poketype1)
 			);
 		}
+	}
+	public function getallpoketypes($typeid)
+	{
+		$result_count = $this->main->loadtypeproductscount($typeid);
+		$count = 0;
+		foreach ($result_count as $key)
+		{
+			foreach ($key as $int)
+			{
+				$count = intval($int);
+			}
+		}
+		$pages = $count /9;
+		$pages = ceil($pages);
+		$poketypes = $this->main->getshowtypes($typeid);
+		$alltypes = $this->main->getalltypes();
+		$this->load->view('products/product_listing',array(
+			'frontproductbyprice' =>$poketypes,
+			'pages' => $pages,
+			'alltypes' => $alltypes)
+			);
 	}
 }
 

@@ -2,9 +2,3 @@ table.table tr td {
 	vertical-align: middle;
 	text-align: center;
 }
-div#pagination {
-	text-align: center;
-}
-div#pagination a {
-	padding: 0 5px;
-}
