@@ -56,6 +56,12 @@ class Main extends CI_Model
 								GROUP BY name
 								ORDER BY products.id DESC")->result_array();
 	}
+	function getproductbyidforcheckout($id)
+	{
+		return $this->db->query("SELECT products.id, products.name, products.price
+								FROM products
+								WHERE products.id = ?",array($id))->row_array();
+	}
 	function getproductbyid($id)
 	{
 		return $this->db->query("SELECT products.id, products.name, products.price, products.inventory_count, products.description
@@ -93,6 +99,10 @@ class Main extends CI_Model
 	{
 		return $this->db->query("SELECT * FROM types")->result_array();	
 	}
+	function getonetype($id)
+	{
+		return $this->db->query("SELECT * FROM types WHERE id = ?",array($id))->result_array();	
+	}
 	function getsimilarids($id)	
 	{
 		return $this->db->query("SELECT products.id, types.id as type_id, types.name
@@ -117,15 +127,15 @@ class Main extends CI_Model
 					ON product_types.type_id = types.id
 					WHERE images.main = 1 AND types.id = ? AND products.id != ?",array($typeid,$productid))->result_array();
 	}
-	function getshowtypes($typeid)
+	function getshowtypes($typeid,$num)
 	{
-		// if ($num == 1)
-		// {
-		// 	$num = $num - 1;
-		// } else {
-		// 	$num = ($num - 1) * 9;
-		// }
-		return $this->db->query("SELECT products.id, products.name, products.price, images.filename, images.product_id, types.name as 'type'
+		if ($num == 1)
+		{
+			$num = $num - 1;
+		} else {
+			$num = ($num - 1) * 9;
+		}
+		return $this->db->query("SELECT products.id, products.name, products.price, images.filename, images.product_id, types.name as 'type', types.id as 'type_id'
 				FROM products
 				LEFT JOIN images
 				ON products.id = images.product_id
@@ -136,7 +146,13 @@ class Main extends CI_Model
 				WHERE images.main = 1 AND types.id = ?
 				GROUP BY name
 	            ORDER BY price
-	            LIMIT 0,9",array($typeid))->result_array();
+	            LIMIT ?,9",array($typeid,$num))->result_array();
+	}
+	function searchpokename($name)
+	{
+		return $this->db->query("SELECT products.id
+								 FROM products
+								 WHERE products.name = ?",array($name))->row_array();
 	}
 }
 ?>

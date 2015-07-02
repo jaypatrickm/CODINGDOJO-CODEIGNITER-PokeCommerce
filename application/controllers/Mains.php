@@ -7,6 +7,7 @@ class Mains extends CI_Controller {
 		parent::__construct();
 		$this->output->enable_profiler();
 		$this->load->model('main');
+		// $this->session->sess_destroy();
 	}
 
 	public function index()
@@ -39,12 +40,15 @@ class Mains extends CI_Controller {
 		}
 		$pages = $count /9;
 		$pages = ceil($pages);
+		$currentpage = array();
+		$currentpage = $id;
 		$frontproductbyprice = $this->main->loadfrontproductsbyprice($id);
 		$alltypes = $this->main->getalltypes();
 		$products = array(
 			'frontproductbyprice' => $frontproductbyprice,
 			'pages' => $pages,
-			'alltypes' => $alltypes
+			'alltypes' => $alltypes,
+			'currentpage' => $currentpage
 			);
 		$this->load->view('products/product_listing',$products);
 	}
@@ -53,16 +57,52 @@ class Mains extends CI_Controller {
 	}
 
 	public function checkout(){
-		$cartitems = $this->main->get_cart();
+		$total = 0;
+		$cartitems = $this->session->userdata('totalcart');
 		$this->load->view('products/checkout',array(
-			'cartitems' =>$cartitems)
+			'cartitems' =>$cartitems,
+			'total' => $total)
 		);
 	}
 	
 	public function buytocart(){
 
-		$quantity =  $this->input->post('quantity');
-		$this->session->set_userdata('carttotal', $this->session->userdata('carttotal') + $quantity);
+		$quantity = array( 
+			'quantity' => $this->input->post('quantity'));
+		$this->session->set_userdata('carttotal', $this->session->userdata('carttotal') + $quantity['quantity']);
+		$data = array(
+			'id' => $this->input->post('pokeid')
+			);
+		$product = $this->main->getproductbyidforcheckout($data['id']);
+		$cartitem = array_merge_recursive($product,$quantity);
+		if($this->session->userdata('totalcart'))
+		{
+			$totalcart = $this->session->userdata('totalcart');
+			$updated = false;
+			foreach($totalcart as $key => $value)
+			{
+				if($value['id'] == $cartitem['id'])
+				{
+					$updated = true;
+					$value['quantity'] = intval($value['quantity']) + intval($cartitem['quantity']);
+					$totalcart[$key] = array(
+						'quantity' => $value['quantity'],
+						'id' => intval($value['id']),
+						'name' => $value['name'],
+						'price' => $value['price']
+						);
+				}
+			}
+			if ($updated == false)
+			{
+				$totalcart[] = $cartitem;
+			}
+			$this->session->set_userdata('totalcart',$totalcart);
+		}
+		else
+		{
+			$this->session->set_userdata('totalcart',array($cartitem));
+		}
 		redirect('/');
 	}
 
@@ -104,7 +144,7 @@ class Mains extends CI_Controller {
 			);
 		}
 	}
-	public function getallpoketypes($typeid)
+	public function getallpoketypes($typeid,$page)
 	{
 		$result_count = $this->main->loadtypeproductscount($typeid);
 		$count = 0;
@@ -117,14 +157,45 @@ class Mains extends CI_Controller {
 		}
 		$pages = $count /9;
 		$pages = ceil($pages);
-		$poketypes = $this->main->getshowtypes($typeid);
+		$poketypes = $this->main->getshowtypes($typeid,$page);
 		$alltypes = $this->main->getalltypes();
+		$getonetype = $this->main->getonetype($typeid);
+		$currentpage = array();
+		$currentpage = $page;	
 		$this->load->view('products/product_listing',array(
 			'frontproductbyprice' =>$poketypes,
 			'pages' => $pages,
-			'alltypes' => $alltypes)
+			'alltypes' => $alltypes,
+			'getonetype' => $getonetype,
+			'page' => $page,
+			'currentpage' => $currentpage)
 			);
 	}
+	public function search(){
+		$searchterm = $this->input->post('search');
+		$searchresult = $this->main->searchpokename($searchterm);
+		if (is_null($searchresult))
+		{
+			$this->session->set_flashdata('search','Cannot find searched pokemans!');
+			redirect('/home');
+		}
+		else
+		{
+			redirect('/product/' . $searchresult["id"]);
+		}
+	}
+	public function deletecartitem($id){
+		$cart =	$this->session->userdata('totalcart');
+		foreach($cart as $key => $value) 
+		{ 
+			if($value['id'] == $id)
+			{
+				$this->session->set_userdata('carttotal', $this->session->userdata('carttotal') - $value['quantity']);
+				unset($cart[$key]);
+				$this->session->set_userdata('totalcart',$cart);
+			}
+		}
+		redirect('/checkout');	
+	}
 }
-
 //end of main controller

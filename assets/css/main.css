@@ -5,3 +5,7 @@ body {
 .bg-red{
 	background-color: #800000;
 }
+
+.noblock{
+	display: inline-block;
+}

@@ -12,14 +12,14 @@
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<form class="navbar-form navbar-right" role="search">
+			<form class="navbar-form navbar-right" action="/search" method="post">
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Search">
+					<input type="text" class="form-control" name="search" placeholder="Search">
 				</div>
 				<button type="submit" class="btn btn-default">Submit</button>
 			</form>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="checkout">Shopping Cart (<?= $this->session->userdata('carttotal')?>)</a></li>
+				<li><a href="/checkout">Shopping Cart (<?= $this->session->userdata('carttotal')?>)</a></li>
 			</ul>
 		</div><!-- /.navbar-collapse -->
 	</div><!-- /.container-fluid -->

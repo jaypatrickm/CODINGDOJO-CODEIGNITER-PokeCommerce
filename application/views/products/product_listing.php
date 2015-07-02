@@ -1,3 +1,5 @@
+<?php
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +13,10 @@
 	<link rel="stylesheet" href="/assets/css/main.css">
 	<script type="text/javascript">
 		$(document).ready(function(){
+			$('#sort').change(function(){
+			var select = $('#sort').val();
+			console.log(select);
+			});
 		});
 	</script>
 </head>
@@ -19,6 +25,7 @@
 	require('application/views/partials/nav.php');
 ?>
 	<div class="container">
+			<?= $this->session->flashdata('search') ?>
 		<div class="row">
 			<div class="col-sm-3">
 				<div class="searchbox">
@@ -26,7 +33,7 @@
 					<ul>
 <?php 					foreach($alltypes as $key)
 						{?>
-						<li><a href="/products/types/<?=$key['id']?>" id="<?=$key['name']?>"><?=$key['name']?></a></li>
+						<li><a href="/pokemon/types/<?=$key['id']?>" id="<?=$key['name']?>"><?=$key['name']?></a></li>
 <?php					}?>
 						<li><a href="/" id="all">Show All</a></li>
 					</ul>
@@ -48,16 +55,12 @@
 						if($count == 0 && isset($key['type']))
 							{?>
 					<h2 id="type"><?= $key['type'] . ' ' . 'Types' ?></h2>
-					<a href="">prev</a>
-					<span>1</span>
-					<a href="">next</a>
+					<span>Current Page: <?=$currentpage?></span>
 <?php						}
 						if($count == 0 && !isset($key['type']))
 							{?>
 					<h2 id="type"><?= "All Pokemans" ?></h2>
-					<a href="">prev</a>
-					<span>1</span>
-					<a href="">next</a>
+					<span>Current Page: <?=$currentpage?></span>
 <?php 						}?>
 					<p>
 						<a href="/product/<?=$key['id']?>"><img src="/<?=$key['filename']?>"><?=$key['name']?></a>
@@ -69,19 +72,19 @@
 					<div class="pagenav">
 <?php 				if(array_key_exists("type", $frontproductbyprice[0]))
 					{
-						foreach($alltypes as $key)
+						for($i=1; $i<=$pages;$i++)
 						{
-							for($i=1; $i<=$pages;$i++)
+							foreach($getonetype as $key)
 							{?>
-						<a href="/products/<?=$key['type']?>/<?=$i?>"><?=$i?></a>
+						Page:<a href="/pokemons/<?=$key['id']?>/<?=$i?>"><?=$i?></a>
 <?php						}
 						}
 					}
 					else
 					{
 						for($i=1; $i<=$pages;$i++)
-						{?>						
-						<a href="/products/<?=$i?>"><?=$i?></a>
+						{?>				
+						Page:<a href="/products/<?=$i?>"><?=$i?></a>
 <?php					}
 					}?>
 					</div>

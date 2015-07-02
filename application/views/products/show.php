@@ -31,29 +31,32 @@
 <?php 	foreach($current_pokemon as $key)
 		{?>
 		<h3><?= $key['name'] ?></h3>
-		<div class = 'left'>
+		<div class = 'row'>
+			<div class="col-md-5">
 <?php 		foreach($current_pokemonpicmain as $pic)
 			{?><img class = "block" src="/<?=$pic['filename']?>" id="main">
 <?php		}?>			
-			<div class = "bottom_left">
-<?php			foreach($current_pokemonpic as $row)
-				{?>
-				<img src="/<?=$row['filename']?>" class="sub">
-<?php 			}?>
+				<div class = "bottom_left">
+	<?php			foreach($current_pokemonpic as $row)
+					{?>
+					<img src="/<?=$row['filename']?>" class="sub">
+	<?php 			}?>
+				</div>
 			</div>
-		</div>	
-		<div class= "col-md-5 col-md-offset-6">
-			<p><?= $key['description']?></p>
-			<p>$<?= $key['price']?></p>
-<?php		}?>
-			<form method = "post" action = "/addtocart">
-				<select name="quantity">
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-				</select>
-				<input type = "submit" value = "Buy">
-			</form>
+			<div class= "col-md-5">
+				<p><?= $key['description']?></p>
+				<p>$<?= $key['price']?></p>
+	<?php		}?>
+				<form method = "post" action = "/addtocart">
+					<input type="hidden" name="pokeid" value="<?= $key['id'] ?>">
+					<select name="quantity">	
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+					</select>
+					<input type = "submit" value = "Buy">
+				</form>
+			</div>
 		</div>
 		<div class = "col-md-6 col-md-offset-1" id="similar">
 			<h4>Similar Pokemon</h4>

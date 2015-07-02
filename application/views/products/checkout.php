@@ -20,7 +20,6 @@
 						$("[name='bill_state']").val($("[name='ship_state']").val());
 						$("[name='bill_zipcode']").val($("[name='ship_zipcode']").val());
 					}
-				});
 				$('#payment-form').submit(function(event){
 				var $form = $(this);
 				console.log($this);
@@ -30,6 +29,7 @@
 				// Prevent the form from submitting with the default action
 				return false;
 				});
+				});
 			});
 		Stripe.setPublishableKey('pk_test_tAa4asVHn9WlRlN4NfRTu8AC');
 		</script>
@@ -38,37 +38,41 @@
 <?php
 	require('application/views/partials/nav.php');
 ?>
-	<div id="container">
+ 	<div id="container">
 		<div id = "cart">
 			<div class = "row">
 				<div class="container">
 					<table class="table table-bordered">
-						<tr>
+						<tr class = "success">
 							<th>Item</th>
 							<th>Price</th>
 							<th>Quantity</th>
 							<th>Total</th>
 						</tr>
-						<tr>
-							<td>Pikachu</td>
-							<td>$19.99</td>
-							<td class="space">2 <a href="">update</a></td>
-							<td>$29.97</td>
+<? if (isset($cartitems)){?>
+	<? foreach($cartitems as $key => $value){ 
+		$totalprice = $value['quantity'] * $value['price']?>
+						<tr class= "danger">
+							<td><?= $value['name']?></td>
+							<td><?= $value['price']?></td>
+							<td class="space"><?= $value['quantity']?>
+								<form class="noblock" action="/addmore/<?= $value['id'] ?>" method="post">
+									<input type="submit" value="Update" class="btn btn-warning">
+								</form>								 
+								<a href="/destroy/<?= $value['id'] ?>"><button class="btn btn-danger">Delete</button></a>
+							</td>
+							<td><?= $totalprice ?></td>
 						</tr>
-						<tr>
-							<td>Chamander</td>
-							<td>$9.99</td>
-							<td class="space">1 <a href="">update</a></td>
-							<td>$9.99</td>
-						</tr>
-						<tr>
-							<td>Mew</td>
-							<td>$34.99</td>
-							<td class="space">1 <a href="">update</a></td>
-							<td>$34.99</td>
-						</tr>
+<? } ?>	
+<? } ?>
 					</table>
-					<h4 class="right">Total: $64.97</h4>
+<? if (isset($cartitems)){?>
+<? foreach($cartitems as $key => $value){ 
+	$total += $value['price'] * $value['quantity'];
+}	
+	}?>
+
+					<h4 class="right">Total: $<?= $total?></h4>
 					<form action="/" class="right">
 						<input type="submit" value="Continue Shopping" class="btn btn-success">
 					</form>
@@ -88,7 +92,7 @@
 						<p>State:<input type="text" name="ship_state"></p>
 						<p>Zipcode<input type="text" name="ship_zipcode"></p>
 					<h1>Billing Information</h1>
-						<input type="checkbox" value="same_address">Same as Shipping information
+						<input type="checkbox" id="same_address">Same as Shipping information
 						<p>First Name:<input type="text" name="bill_firstname"></p>
 						<p>Last Name:<input type="text" name="bill_lastname"></p>
 						<p>Address:<input type="text" name="bill_address1"></p>
