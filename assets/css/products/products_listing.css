@@ -57,3 +57,7 @@ body {
 p{
 	display: inline-block;
 }
+
+#pagenav{
+	margin-top: 20px;
+}

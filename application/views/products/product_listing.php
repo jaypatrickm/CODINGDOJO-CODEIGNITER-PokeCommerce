@@ -26,6 +26,7 @@
 ?>
 	<div class="container">
 			<?= $this->session->flashdata('search') ?>
+			<?= $this->session->flashdata('purchase') ?>
 		<div class="row">
 			<div class="col-sm-3">
 				<div class="searchbox">
@@ -41,13 +42,13 @@
 			</div>
 			<div clas="col-sm-9">
 				<div class="content">
-					<div id="sortbox">
+<!-- 					<div id="sortbox">
 						Sorted by<select name="sort" id="sort">
 							<option value="price">Price</option>
 							<option value="mostpopular">Most Popular</option>
 							<option value="Newest">Newest</option>
 						</select>
-					</div>
+					</div> -->
 <?php 				shuffle($frontproductbyprice);
 					$count = 0;
 					foreach($frontproductbyprice as $key)
@@ -69,7 +70,8 @@
 					</p>
 <?php				$count++;
 					}?>
-					<div class="pagenav">
+				</div>
+					<div id="pagenav" class="col-md-offset-6">
 <?php 				if(array_key_exists("type", $frontproductbyprice[0]))
 					{
 						for($i=1; $i<=$pages;$i++)
@@ -88,7 +90,6 @@
 <?php					}
 					}?>
 					</div>
-				</div>
 			</div>
 		</div>
 	</div>

@@ -154,5 +154,27 @@ class Main extends CI_Model
 								 FROM products
 								 WHERE products.name = ?",array($name))->row_array();
 	}
+	function checkoutstoreshipandbill($data)
+	{
+		$query = "INSERT INTO orders (total_price, status, created_at, updated_at, ship_first_name, ship_last_name, ship_address, ship_city, ship_state ,ship_zipcode, bill_first_name, bill_last_name, bill_address, bill_city, bill_state, bill_zipcode) VALUES (?,'Ordered',NOW(),NOW(),?,?,?,?,?,?,?,?,?,?,?,?)";
+		$values = array($data['total_price'], $data['ship_firstname'], $data['ship_lastname'], $data['ship_address'], $data['ship_city'],$data['ship_state'], $data['ship_zipcode'], $data['bill_firstname'], $data['bill_lastname'], $data['bill_address'], $data['bill_city'], $data['bill_state'], $data['bill_zipcode']);
+		return $this->db->query($query, $values);
+	}
+	function retrievelastorderid()
+	{
+		return $this->db->query("SELECT id FROM pokecommerce_schema.orders
+								 ORDER BY id DESC
+								 LIMIT 1")->row_array();
+	}
+	function createproductquantitysold($orderid,$cartdata)
+	{
+		foreach ($cartdata as $key => $value) 
+		{
+			$query = "INSERT INTO product_quantity_sold (order_id, product_id, quantity_sold, created_at, updated_at)
+						VALUES (?,?,?,NOW(),NOW())";
+			$values = array($orderid['id'], $value['id'], $value['quantity']);
+			$this->db->query($query,$values);
+		}
+	}
 }
 ?>

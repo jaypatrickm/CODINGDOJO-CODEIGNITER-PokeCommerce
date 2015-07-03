@@ -107,9 +107,14 @@ class Mains extends CI_Controller {
 	}
 
 	public function shippingBilling(){
-		// $this->main->shipping($this->input->post());
-		// $this->main->billing($this->input->post());
-		// redirect('/');
+		// test stripe card number: 4242424242424242
+		$this->main->checkoutstoreshipandbill($this->input->post());
+		$lastorderid = $this->main->retrievelastorderid();
+		$this->main->createproductquantitysold($lastorderid,$this->session->userdata('totalcart'));
+		$this->session->unset_userdata('totalcart');
+		$this->session->unset_userdata('carttotal');
+		$this->session->set_flashdata('purchase',"Thank you for your pokepurchase!");
+		redirect('/home');
 	}
 	public function show_product($id){
 		$current_pokemon = $this->main->getproductbyid($id);
@@ -196,6 +201,21 @@ class Mains extends CI_Controller {
 			}
 		}
 		redirect('/checkout');	
+	}
+	public function updatecartitem($id){
+		$cart = $this->session->userdata('totalcart');
+		foreach($cart as $key => $value)
+		{
+			if($value['id'] == $id)
+			{
+				$pastquantity = $value['quantity'];
+				$this->session->set_userdata('carttotal', $this->session->userdata('carttotal') - $pastquantity);
+				$this->session->set_userdata('carttotal', $this->session->userdata('carttotal') + $this->input->post('quantity'));
+				$cart[$key]['quantity'] = $this->input->post('quantity');
+				$this->session->set_userdata('totalcart',$cart);
+			}
+		}
+		redirect('/checkout');
 	}
 }
 //end of main controller

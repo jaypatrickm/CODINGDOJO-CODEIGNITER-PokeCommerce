@@ -78,4 +78,5 @@ $route['pokemon/types/(:any)'] = "mains/getallpoketypes/$1/1";
 $route['pokemons/(:any)/(:any)'] = "mains/getallpoketypes/$1/$2";
 $route['search'] = "mains/search";
 $route['destroy/(:any)'] = 'mains/deletecartitem/$1';
+$route['addmore/(:any)'] = 'mains/updatecartitem/$1';
 $route['translate_uri_dashes'] = FALSE;

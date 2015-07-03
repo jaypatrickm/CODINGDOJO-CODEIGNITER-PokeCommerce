@@ -9,26 +9,42 @@
 		<link rel="stylesheet" href="/assets/css/products/checkout.css">
 		<link rel="stylesheet" href="/assets/css/main.css">
 		<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-		<script>
+		<script type="text/javascript">
 			$(document).ready(function(){
 				$('#same_address').on("change",function(){
 					if(this.checked){
 						$("[name='bill_firstname']").val($("[name='ship_firstname']").val());
 						$("[name='bill_lastname']").val($("[name='ship_lastname']").val());
-						$("[name='bill_address1']").val($("[name='ship_address1']").val());
+						$("[name='bill_address']").val($("[name='ship_address']").val());
 						$("[name='bill_city']").val($("[name='ship_city']").val());
 						$("[name='bill_state']").val($("[name='ship_state']").val());
 						$("[name='bill_zipcode']").val($("[name='ship_zipcode']").val());
 					}
-				$('#payment-form').submit(function(event){
-				var $form = $(this);
-				console.log($this);
-				// Disable the submit button to prevent repeated clicks
-				$form.find('button').prop('disabled', true);
-				Stripe.card.createToken($form, stripeResponseHandler);
-				// Prevent the form from submitting with the default action
-				return false;
 				});
+					function stripeResponseHandler(status, response) {
+					  var $form = $('#payment-form');
+
+					  if (response.error) {
+					    // Show the errors on the form
+					    $form.find('.payment-errors').text(response.error.message);
+					    $form.find('button').prop('disabled', false);
+					  } else {
+					    // response contains id and card, which contains additional card details
+					    var token = response.id;
+					    // Insert the token into the form so it gets submitted to the server
+					    $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+					    // and submit
+					    $form.get(0).submit();
+					  }
+					};
+				$('#payment-form').submit(function(event){
+					var $form = $(this);
+					 // Disable the submit button to prevent repeated clicks
+					$form.find('button').prop('disabled', true);
+
+					Stripe.card.createToken($form, stripeResponseHandler);
+					// Prevent the form from submitting with the default action
+					return false;
 				});
 			});
 		Stripe.setPublishableKey('pk_test_tAa4asVHn9WlRlN4NfRTu8AC');
@@ -43,6 +59,7 @@
 			<div class = "row">
 				<div class="container">
 					<table class="table table-bordered">
+						<h2>Your Current Cart</h2>
 						<tr class = "success">
 							<th>Item</th>
 							<th>Price</th>
@@ -57,6 +74,11 @@
 							<td><?= $value['price']?></td>
 							<td class="space"><?= $value['quantity']?>
 								<form class="noblock" action="/addmore/<?= $value['id'] ?>" method="post">
+									<select name="quantity">
+										<option value=1>1</option>
+										<option value=2>2</option>
+										<option value=3>3</option>
+									</select>
 									<input type="submit" value="Update" class="btn btn-warning">
 								</form>								 
 								<a href="/destroy/<?= $value['id'] ?>"><button class="btn btn-danger">Delete</button></a>
@@ -83,23 +105,22 @@
 			<div class="row-fluid">
 				<div class="col-md-offset-2">
 					<h1>Shipping Information</h1>
-					<form action="shippingBilling" method="post">
-						<p>First Name:<input type="text" name="ship_firstname"></p>
-						<p>Last Name:<input type="text" name="ship_lastname"></p>
-						<p>Address:<input type="text" name="ship_address1"></p>
-						<p>Address2:<input type="text" name="ship_address2"></p>
-						<p>City:<input type="text" name="ship_city"></p>
-						<p>State:<input type="text" name="ship_state"></p>
-						<p>Zipcode<input type="text" name="ship_zipcode"></p>
-					<h1>Billing Information</h1>
-						<input type="checkbox" id="same_address">Same as Shipping information
-						<p>First Name:<input type="text" name="bill_firstname"></p>
-						<p>Last Name:<input type="text" name="bill_lastname"></p>
-						<p>Address:<input type="text" name="bill_address1"></p>
-						<p>City:<input type="text" name="bill_city"></p>
-						<p>State:<input type="text" name="bill_state"></p>
-						<p class="line_space">Zipcode<input type="text" name="bill_zipcode"></p>
-						<input type="submit" value="Pay" class="btn btn-info">
+					<form action="shippingBilling" id="payment-form" method="post">
+							<p>First Name:<input type="text" name="ship_firstname"></p>
+							<p>Last Name:<input type="text" name="ship_lastname"></p>
+							<p>Address:<input type="text" name="ship_address"></p>
+							<p>City:<input type="text" name="ship_city"></p>
+							<p>State:<input type="text" name="ship_state"></p>
+							<p>Zipcode<input type="text" name="ship_zipcode"></p>
+						<h1>Billing Information</h1>
+							<input type="checkbox" id="same_address">Same as Shipping information
+							<p>First Name:<input type="text" name="bill_firstname"></p>
+							<p>Last Name:<input type="text" name="bill_lastname"></p>
+							<p>Address:<input type="text" name="bill_address"></p>
+							<p>City:<input type="text" name="bill_city"></p>
+							<p>State:<input type="text" name="bill_state"></p>
+							<p class="line_space">Zipcode<input type="text" name="bill_zipcode"></p>
+							<input type="hidden" name="total_price" value="<?= $total ?>">
 					  <span class="payment-errors"></span>
 
 					  <div class="form-row">
@@ -125,7 +146,8 @@
 					    <input type="text" size="4" data-stripe="exp-year"/>
 					  </div>
 
-					  <button type="submit">Submit Payment</button>
+					 	<button type="submit" class="btn btn-info">Submit Payment</button>
+					</form>
 				</div>
 			</div>
 		</div>
