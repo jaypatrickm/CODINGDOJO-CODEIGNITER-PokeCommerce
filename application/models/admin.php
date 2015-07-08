@@ -283,13 +283,11 @@ class Admin extends CI_Model
 		// var_dump($post);
 		// var_dump($typeidarray2);
 		// die();
-		$query = "UPDATE products SET name = ?, description = ?, inventory_count = ?, price = ?, updated_at = NOW()
-						WHERE id = ?";
-		$values = array($post['name'], $post['description'], $post['inventory_count'], $post['price'], $post['id']);
-		$result = $this->db->query($query, $values);
-		if($result)
-		{
-			if(isset($post['type2']))
+			$query = "UPDATE products SET name = ?, description = ?, inventory_count = ?, price = ?, updated_at = NOW()
+							WHERE id = ?";
+			$values = array($post['name'], $post['description'], $post['inventory_count'], $post['price'], $post['id']);
+			$result = $this->db->query($query, $values);
+			if($post['type2'] != '')
 			{
 				$this->db->query("DELETE FROM product_types WHERE product_id = {$post['id']}");
 				$query = "INSERT INTO product_types (product_id, type_id, updated_at, created_at)
@@ -305,7 +303,7 @@ class Admin extends CI_Model
 			}
 			else
 			{
-				$this->db->query("DELETE * FROM product_types WHERE product_id = {$post['id']}");
+				$this->db->query("DELETE FROM product_types WHERE product_id = {$post['id']}");
 				$query = "INSERT INTO product_types (product_id, type_id, updated_at, created_at)
 						  VALUES (?,?,NOW(),NOW())";
 				$values = array(intval($post['id']), intval($typeidarray['id']));
@@ -318,11 +316,6 @@ class Admin extends CI_Model
 				$values = array($filename, $post['id']);
 				$this->db->query($query,$values);
 			}
-		}
-		else
-		{
-			return false;
-		}			
 	}
 	function get_type_id_by_name($name)
 	{
