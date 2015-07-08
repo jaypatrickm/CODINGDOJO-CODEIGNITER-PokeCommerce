@@ -17,6 +17,16 @@
 					$(this).attr("checked", true);
 				}
 			});
+			$(function(){
+			    $('#addtypeformbutton').on('click', function(data){
+			      $.ajax({
+			      		url: '/addnewtype',
+			      		method: 'post',
+			      		data: $('#addtypeformvalue').serialize()
+			      		}).done(function(data){
+			         });
+			    });
+			});
 		})
 		</script>
 </head>
@@ -24,14 +34,25 @@
 <?php require('application/views/partials/adminnav.php'); ?>
 	<div class="container">
 		<h2>Edit Product - ID <?= $product['id'] ?></h2>
-		<form action="" method="post">
+		<h3><?= $this->session->flashdata('msg') ?></h3>
+		<h3><?= $this->session->flashdata('errors') ?></h3>
+		<form action="/admin_edit_product/<?= $product['id'] ?>" method="post" enctype="multipart/form-data">
 			<div class="form-group">
 				<label for="name">Name</label>
 				<input type="text" class="form-control" id="name" name="name" value="<?= $product['name'] ?>">
 			</div>
+			<input type="hidden" value="<?= $product['id'] ?>" name="id">
 			<div class="form-group">
 				<label for="description">Description</label>
 				<textarea class="form-control" rows="10" cols="10" id="description" name="description"><?= $product['description'] ?></textarea>
+			</div>
+			<div class="form-group">
+				<label for="inventory_count">Inventory Count</label>
+				<input type="text" class="form-control" id="inventory_count" name="inventory_count" value="<?= $product['inventory_count'] ?>"></input>
+			</div>
+			<div class="form-group">
+				<label for="Price">Price</label>
+				<input type= "text" class="form-control" id="price" name="price" value="<?= $product['price'] ?>"</input>
 			</div>
 
 			<?php
@@ -54,7 +75,7 @@
 			?>
 			<div class="form-group">
 				<label for="description">Type</label>
-				<select class="form-control">
+				<select class="form-control" name = "type">
 				<?php 
 					foreach ($types as $type) 
 					{ 
@@ -70,7 +91,7 @@
 										foreach ($product_type_value as $product_types_key => $product_types_value) 
 										{
 											if ($name == $product_types_value)
-											{
+											{ 
 											?>
 												<option value="<?= $name ?>" selected><?= $name ?></option>
 
@@ -92,14 +113,77 @@
 				 	} 
 				?>
 				</select>
+			<div class="form-group">
+				<label for="description">Second Type</label>
+				<select class="form-control" name = "type2">
+					<option value="">None</option>
+				<?php 
+					foreach ($types as $type) 
+					{ 
+						foreach ($type as $key => $name) 
+						{ 
+							if ($key == 'name')
+							{ 
+								$is_type = false;
+								foreach ($product_type as $product_type_key => $product_type_value) 
+								{
+									if ($product_type_key == $i)
+									{
+										foreach ($product_type_value as $product_types_key => $product_types_value) 
+										{
+											if ($name == $product_types_value)
+											{ 
+											?>
+												<option value="<?= $name ?>"><?= $name ?></option>
+
+											<?php
+												$is_type = true;
+											}
+											
+										}
+									}
+								}
+								if($is_type == false)
+								{
+							?>	
+								<option value="<?= $name ?>"><?= $name ?></option>
+							<?php 
+								}
+							}
+						}	
+				 	} 
+				?>
+				</select>
+			</div>
 			</div>
 			<?php	
 			}
 			?>
 			<div class="form-group">
 				<label for="new_type">Add New Type</label>
-				<input type="text" class="form-control" id="new_type" name="new_type" placeholder="New Type">
-				<button type="button" class="btn btn-warning add_type_btn">Add Type</button>
+				<!-- Trigger the modal with a button -->
+				<button type="button" class="btn btn-warning add_type_btn" data-toggle= "modal" data-target="#addtype">Add Type</button>
+				<!-- Modal -->
+				<div id="addtype" class="modal fade" role="dialog">
+				  <div class="modal-dialog modal-sm">
+
+				    <!-- Modal content-->
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				        <h4 class="modal-title">Add a new Poke Type!</h4>
+				      </div>
+				      <div class="modal-body">
+				        	<input type = "text" id="addtypeformvalue" name="newtype">
+				        	<button id = "addtypeformbutton" class="btn btn-success">Add</button>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				      </div>
+				    </div>
+
+				  </div>
+				</div>
 			</div>
 			<div class="form-group">
 			<label class="image-label" for="main">Images (Select Main)</label>
@@ -113,7 +197,7 @@
 						<label>
 							<img class="pokemon img-thumbnail" src="/<?= $product_image_value['filename'] ?>" alt="pokemon" title="pokemon">	
 							<input class="radio" type="checkbox" checked> 
-							<a href="/edit/delete/image/<?= $product_image_value['id']?>" class="btn btn-link">Delete</a>
+							<a href="/edit/delete/image/<?= $product_image_value['id']?>/<?= $product['id']?>" class="btn btn-link">Delete</a>
 						</label>
 						<?php
 					}
@@ -123,7 +207,7 @@
 						<label>
 							<img class="pokemon img-thumbnail" src="/<?= $product_image_value['filename'] ?>" alt="pokemon" title="pokemon">	
 							<input class="radio" type="checkbox"> 
-							<a href="/edit/delete/image/<?= $product_image_value['id']?>" class="btn btn-link">Delete</a>
+							<a href="/edit/delete/image/<?= $product_image_value['id']?>/<?= $product['id'] ?>" class="btn btn-link">Delete</a>
 						</label>
 						<?php
 					}
@@ -136,7 +220,6 @@
 				<p class="help-block">Select an image for upload.</p>
 			</div>
 			<a href="/admin/dashboard/products" class="btn btn-default" name="back">Go back</a>
-			<button class="btn btn-success" name="preview">Preview</button>
 			<input type="submit" class="btn btn-primary">
 		</form>
 	</div>

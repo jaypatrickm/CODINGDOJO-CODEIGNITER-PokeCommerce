@@ -1,3 +1,4 @@
+<? date_default_timezone_set('America/Los_Angeles'); ?>
 <nav class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container-fluid bg-red">
 		<!-- Brand and toggle get grouped for better mobile display -->

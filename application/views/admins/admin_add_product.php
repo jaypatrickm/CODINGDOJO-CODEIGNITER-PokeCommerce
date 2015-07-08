@@ -45,13 +45,23 @@
 				?>
 				</select>
 			</div>
+			<div class="form-group">
+				<label for="description">Second Type</label>
+				<select class="form-control" name="type2">
+					<option value="" selected>None</option>
+				<?php 
+				foreach ($types as $key => $value) {
+				?>
+					<option value="<?= $value['id']?>"><?= $value['name'] ?></option>
+				<?php
+				}
+				?>
+				</select>
+			</div>
 			<div class="checkbox">
 			    <label name="display">
 			        <input type="checkbox" name="display" value="0"> Do not display product 
 			    </label>
-			</div>
-			<div class="form-group">
-				<button type="button" class="btn btn-warning add_type_btn">Add Second Type</button>
 			</div>
 			<div class="form-group">
 				<label for="add_image">Add Image</label>
@@ -59,7 +69,6 @@
 				<p class="help-block">Select an image for upload.</p>
 			</div>
 			<a href="/admin/dashboard/products" class="btn btn-default" name="back">Go back</a>
-			<button class="btn btn-success" name="preview">Preview</button>
 			<input type="submit" class="btn btn-primary">
 		</form>
 	</div>

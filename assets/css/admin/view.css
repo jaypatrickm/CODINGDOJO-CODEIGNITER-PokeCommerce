@@ -1,0 +1,13 @@
+#orderview{
+	border: 1px solid black;
+}
+#orderviewstatus{
+	background-color: green;
+	color: white;
+	margin-left: 15px;
+	border: 3px groove black;
+}
+#orderviewtotal{
+	border: 2px groove black;
+	padding: 5px;
+}

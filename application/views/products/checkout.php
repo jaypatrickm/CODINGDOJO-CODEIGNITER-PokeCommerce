@@ -105,48 +105,51 @@
 			<div class="row-fluid">
 				<div class="col-md-offset-2">
 					<h1>Shipping Information</h1>
-					<form action="shippingBilling" id="payment-form" method="post">
-							<p>First Name:<input type="text" name="ship_firstname"></p>
-							<p>Last Name:<input type="text" name="ship_lastname"></p>
-							<p>Address:<input type="text" name="ship_address"></p>
-							<p>City:<input type="text" name="ship_city"></p>
-							<p>State:<input type="text" name="ship_state"></p>
-							<p>Zipcode<input type="text" name="ship_zipcode"></p>
+					<form action="shippingBilling" id="payment-form" method="post" class="form-horizontal" role="form">
+						<div class="form-group">
+							<p>First Name:<input type="text" name="ship_firstname" class="form-control" placeholder="Enter Shipping First Name"></p>
+							<p>Last Name:<input type="text" name="ship_lastname" class="form-control" placeholder="Enter Shipping Last Name"></p>
+							<p>Address:<input type="text" name="ship_address" class="form-control" placeholder="Enter Shipping Address"></p>
+							<p>City:<input type="text" name="ship_city" class="form-control" placeholder="Enter Shipping City"></p>
+							<p>State:<input type="text" name="ship_state" class="form-control" placeholder="Enter Shipping State"></p>
+							<p>Zipcode<input type="text" name="ship_zipcode" class="form-control" placeholder="Enter shipping Zipcode"></p>
+						</div>
 						<h1>Billing Information</h1>
+						<div class="form-group">
 							<input type="checkbox" id="same_address">Same as Shipping information
-							<p>First Name:<input type="text" name="bill_firstname"></p>
-							<p>Last Name:<input type="text" name="bill_lastname"></p>
-							<p>Address:<input type="text" name="bill_address"></p>
-							<p>City:<input type="text" name="bill_city"></p>
-							<p>State:<input type="text" name="bill_state"></p>
-							<p class="line_space">Zipcode<input type="text" name="bill_zipcode"></p>
+							<p>First Name:<input type="text" name="bill_firstname" class="form-control" placeholder="Enter Billing First Name"></p>
+							<p>Last Name:<input type="text" name="bill_lastname" class="form-control" placeholder="Enter Billing Last Name"></p>
+							<p>Address:<input type="text" name="bill_address" class="form-control" placeholder="Enter Billing Address"></p>
+							<p>City:<input type="text" name="bill_city" class="form-control" placeholder="Enter Billing City"></p>
+							<p>State:<input type="text" name="bill_state" class="form-control" placeholder="Enter Billing State"></p>
+							<p class="line_space">Zipcode<input type="text" name="bill_zipcode" class="form-control" placeholder="Enter Billing Zipcode"></p>
 							<input type="hidden" name="total_price" value="<?= $total ?>">
-					  <span class="payment-errors"></span>
+							  <span class="payment-errors"></span>
 
-					  <div class="form-row">
-					    <label>
-					      <span>Card Number</span>
-					      <input type="text" size="20" data-stripe="number"/>
-					    </label>
-					  </div>
+							  <div class="form-row">
+							    <label>
+							      <span>Card Number</span>
+							      <input type="text" size="140" data-stripe="number" class="form-control" placeholder="ex: 4242424242424242 or 4242-4242-4242-4242"/>
+							    </label>
+							  </div>
 
-					  <div class="form-row">
-					    <label>
-					      <span>CVC</span>
-					      <input type="text" size="4" data-stripe="cvc"/>
-					    </label>
-					  </div>
+							  <div class="form-row">
+							    <label>
+							      <span>CVC</span>
+							      <input type="text" size="20" data-stripe="cvc" class="form-control" />
+							    </label>
+							  </div>
 
-					  <div class="form-row">
-					    <label>
-					      <span>Expiration (MM/YYYY)</span>
-					      <input type="text" size="2" data-stripe="exp-month"/>
-					    </label>
-					    <span> / </span>
-					    <input type="text" size="4" data-stripe="exp-year"/>
-					  </div>
-
-					 	<button type="submit" class="btn btn-info">Submit Payment</button>
+							  <div class="form-row">
+							    <label>
+							      <span>Expiration (MM/YYYY)</span>
+							      <input type="text" size="2" data-stripe="exp-month" />
+							    </label>
+							    <span> / </span>
+							    <input type="text" size="4" data-stripe="exp-year"/>
+							  </div>
+							 	<button type="submit" class="btn btn-info">Submit Payment</button>
+						 </div>
 					</form>
 				</div>
 			</div>

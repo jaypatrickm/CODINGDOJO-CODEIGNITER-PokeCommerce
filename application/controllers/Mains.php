@@ -57,6 +57,14 @@ class Mains extends CI_Controller {
 	}
 
 	public function checkout(){
+		if($this->session->userdata('carttotal'))
+		{
+			$this->session->userdata('carttotal');
+		}
+		else
+		{
+			$this->session->set_userdata('carttotal',0);
+		}
 		$total = 0;
 		$cartitems = $this->session->userdata('totalcart');
 		$this->load->view('products/checkout',array(

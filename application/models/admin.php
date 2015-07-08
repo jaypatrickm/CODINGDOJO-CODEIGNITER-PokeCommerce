@@ -3,17 +3,15 @@ class Admin extends CI_Model
 {
 	function get_orders()
 	{
-		return $this->db->query("SELECT * FROM orders")->result_array();
+		return $this->db->query("SELECT *,(SELECT COUNT(*) FROM orders) AS total FROM orders LIMIT 0,5")->result_array();
 	}
-	function get_products($num)
+	function get_orders_count()
 	{
-		if ($num == 1)
-		{
-			$num = $num - 1;
-		} else {
-			$num = ($num - 1) * 3;
-		}
-		return $this->db->query("SELECT * FROM images LEFT JOIN products ON images.product_id = products.id WHERE main = 1 LIMIT $num,3")->result_array();
+		return $this->db->query("SELECT COUNT(*) FROM orders")->result_array();
+	}
+	function get_products()
+	{
+		return $this->db->query("SELECT *,(SELECT COUNT(*) FROM images WHERE main = 1) AS total FROM images LEFT JOIN products ON images.product_id = products.id WHERE main = 1 LIMIT 0,3")->result_array();
 	}
 	function get_products_count()
 	{
@@ -163,21 +161,37 @@ class Admin extends CI_Model
 	function add_prod_to_db($post,$filename)
 	{
 		$query = "INSERT INTO products (name, description, inventory_count, price, inventory_sold, created_at, updated_at, display)
-					VALUES (?,?,?,?,?,NOW(),NOW(),?)";
+					VALUES (?,?,?,?,0,NOW(),NOW(),?)";
 		if($this->input->post('display') == null)
 		{
 			$display = 1;
 		}
 
-		$values = array($this->input->post('name'), $this->input->post('description'), $this->input->post('inventory_count'), $this->input->post('price'), $this->input->post('inventory_sold'), $display);
+		$values = array($this->input->post('name'), $this->input->post('description'), $this->input->post('inventory_count'), $this->input->post('price'), $display);
 		$result = $this->db->query($query, $values);
 		if($result)
 		{
-			$query = "INSERT INTO product_types (product_id, type_id, created_at, updated_at)
-					  VALUES (?,?, NOW(), NOW())";
-			$last_product_id = $this->db->insert_id();
-			$values = array($last_product_id, $this->input->post('type'));
-			$result = $this->db->query($query,$values);
+			if($this->input->post('type2') != " ")
+			{
+				$query = "INSERT INTO product_types (product_id, type_id, created_at, updated_at)
+						  VALUES (?,?, NOW(), NOW())";
+				$last_product_id = $this->db->insert_id();
+				$values = array($last_product_id, $this->input->post('type'));
+				$this->db->query($query,$values);
+
+				$query2 = "INSERT INTO product_types (product_id, type_id, created_at, updated_at)
+						  VALUES (?,?, NOW(), NOW())";
+				$values2 = array($last_product_id, $this->input->post('type2'));
+				$this->db->query($query2,$values2);		
+			}
+			else
+			{
+				$query = "INSERT INTO product_types (product_id, type_id, created_at, updated_at)
+						  VALUES (?,?, NOW(), NOW())";
+				$last_product_id = $this->db->insert_id();
+				$values = array($last_product_id, $this->input->post('type'));
+				$result = $this->db->query($query,$values);
+			}
 			if ($result)
 			{
 				$query = "INSERT INTO images (filename, created_at, updated_at, product_id, main)
@@ -223,6 +237,103 @@ class Admin extends CI_Model
 		{
 			return false;
 		}
+	}
+	function get_order_by_id($id)
+	{
+		return $this->db->query("SELECT * FROM orders WHERE id = $id")-> row_array();
+	}
+	function get_product_quantity_by_id($id)
+	{
+		return $this->db->query("SELECT product_quantity_sold.id, product_quantity_sold.order_id, 
+								product_quantity_sold.quantity_sold, products.name, products.price 
+								FROM product_quantity_sold 
+								LEFT JOIN products
+								ON product_quantity_sold.product_id = products.id
+								Where order_id = $id") -> result_array();
+	}
+	function update_orders($data)
+	{
+		$query ="SELECT  *, (SELECT COUNT(*) FROM orders WHERE (ship_first_name LIKE ? OR ship_last_name LIKE ?)) AS total
+				FROM orders
+				WHERE (ship_first_name LIKE ? OR ship_last_name LIKE ?) 
+				LIMIT ?, 5";
+		$values = array($data['search'] . '%', $data['search'] . '%', $data['search'] . '%', $data['search'] . '%', intval($data['page_number']));
+		return $this->db->query($query,$values)->result_array();
+	}
+	function update_products($data)
+	{
+		$query ="SELECT  *, (SELECT COUNT(*) FROM images LEFT JOIN products ON products.id = images.product_id WHERE (products.name LIKE ? AND images.main = 1)) AS total
+				FROM  images
+				LEFT JOIN products
+				ON images.product_id = products.id
+				WHERE (products.name LIKE ? AND main = 1) 
+				LIMIT ?, 3";
+		$values = array($data['search'] . '%', $data['search'] . '%', intval($data['page_number']));
+		return $this->db->query($query,$values)->result_array();
+	}
+	function delete_picture($id)
+	{
+		$query = "DELETE FROM images WHERE id = $id";
+		$this->db->query($query);
+	}
+	function update_prod_to_db($post,$typeidarray,$filename,$typeidarray2)
+	{
+		// var_dump($display);
+		// var_dump($this->input->post());
+		// var_dump($post);
+		// var_dump($typeidarray2);
+		// die();
+		$query = "UPDATE products SET name = ?, description = ?, inventory_count = ?, price = ?, updated_at = NOW()
+						WHERE id = ?";
+		$values = array($post['name'], $post['description'], $post['inventory_count'], $post['price'], $post['id']);
+		$result = $this->db->query($query, $values);
+		if($result)
+		{
+			if(isset($post['type2']))
+			{
+				$this->db->query("DELETE FROM product_types WHERE product_id = {$post['id']}");
+				$query = "INSERT INTO product_types (product_id, type_id, updated_at, created_at)
+						  VALUES (?,?,NOW(),NOW())";
+				$values = array(intval($post['id']), intval($typeidarray['id']));
+				$this->db->query($query,$values);
+
+				$query2 = "INSERT INTO product_types (product_id, type_id, updated_at, created_at)
+						  VALUES (?,?,NOW(),NOW())";
+				$values2 = array(intval($post['id']), intval($typeidarray2['id']));
+				$this->db->query($query2,$values2);
+
+			}
+			else
+			{
+				$this->db->query("DELETE * FROM product_types WHERE product_id = {$post['id']}");
+				$query = "INSERT INTO product_types (product_id, type_id, updated_at, created_at)
+						  VALUES (?,?,NOW(),NOW())";
+				$values = array(intval($post['id']), intval($typeidarray['id']));
+				$this->db->query($query,$values);				
+			}
+			if ($filename != "false")
+			{
+				$query = "INSERT INTO images (filename, created_at, updated_at, product_id)
+						  VALUES(?,NOW(), NOW(),?)";
+				$values = array($filename, $post['id']);
+				$this->db->query($query,$values);
+			}
+		}
+		else
+		{
+			return false;
+		}			
+	}
+	function get_type_id_by_name($name)
+	{
+		return $this->db->query("SELECT * FROM types WHERE name = '{$name}' ")->row_array();
+	}
+	function add_type($typename)
+	{
+		$query = "INSERT INTO types (name, created_at, updated_at)
+							VALUES (?,NOW(),NOW())";
+		$values = array($typename);
+		$this->db->query($query,$values);
 	}
 }
 ?>

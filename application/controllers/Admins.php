@@ -112,22 +112,9 @@ class admins extends CI_Controller {
 	{
 		if($this->session->userdata('id'))
 		{
-			$result_count = $this->admin->get_products_count();
-			$count = 0;
-			foreach ($result_count as $value) {
-				foreach ($value as $int) {
-					$count = intval($int);
-				}
-			}
-			$pages = $count/3;
-			$pages = ceil($pages);
-			$result = $this->admin->get_products($id);
-			$products = array('products' => $result, 'pages' => $pages);
+			$result = $this->admin->get_products();
+			$products = array('products' => $result);
 			$this->load->view('admins/admin_products', $products);
-		}
-		else 
-		{
-			redirect('/admin');
 		}
 	}
 
@@ -277,12 +264,12 @@ class admins extends CI_Controller {
 			redirect('/admin');
 		}
 	}
-	public function admin_orders()
+	public function admin_orders($id)
 	{
 		if($this->session->userdata('id'))
 		{
-			$result = $this->admin->get_orders();
-			$orders = array('orders' => $result);
+			$results = $this->admin->get_orders();
+			$orders = array('results' => $results);
 			$this->load->view('admins/admin_orders', $orders);
 		}
 		else 
@@ -290,7 +277,145 @@ class admins extends CI_Controller {
 			redirect('/admin');
 		}
 	}
+	public function view($orderid)
+	{
+		$getorderinfo = $this->admin->get_order_by_id($orderid);
+		$getproductinfo = $this->admin->get_product_quantity_by_id($orderid);
+		$this->load->view('admins/admin_view', array(
+			'orderinfo' => $getorderinfo,
+			'productinfo' => $getproductinfo)
+		);
+	}
+	public function loadorders()
+	{
+		$results = $this->admin->update_orders($this->input->post());
+		$this->load->view('partials/admin_orders_partial', array(
+			'results' => $results)
+		);
+	}
+	public function loadproducts()
+	{
+		$products = $this->admin->update_products($this->input->post());
+		$this->load->view('partials/admin_products_partial', array(
+			'products' => $products)
+		);
+	}
+	public function deletepicture($picid,$productid)
+	{
+		$this->admin->delete_picture($picid);
+		redirect('admin/dashboard/products/edit/' . $productid);
+	}
+	public function admin_edit_product($id)
+	{
+		if($this->session->userdata('id'))
+		{
+			if (empty($this->input->post()))
+			{
+				$this->session->set_flashdata('msg', 'Edit form is empty, please fill form before add.');
+				redirect('/admin/dashboard/products/edit/' . $id);
+			}
+			elseif ($this->input->post('type') == $this->input->post('type2'))
+			{
+				$this->session->set_flashdata('msg', 'Types cannot be the same!');
+				redirect('/admin/dashboard/products/edit/' . $id);
+			}
+			else {
+				if ($this->admin->add_validation() == false)
+				{
+					//var_dump($_POST);
+					$error = validation_errors();
+					$this->session->set_flashdata('msg', 'Edit form is not ready.');
+					$this->session->set_flashdata('errors', $error);
+					redirect('/admin/dashboard/products/edit/' . $id);
+				}
+				else 
+				{
+					$folder = strtolower($this->input->post('name'));
+					$path = "./assets/images/$folder";
+					$folder_path = "assets/images/$folder";
+					//set up for image add
+					$config['upload_path'] = $path;
+					$config['allowed_types'] = 'jpg|jpeg|gif|png';
+					$config['max_size'] = '1000000';
+					$config['max_width'] = '1024';
+					$config['max_height'] = '1024';
+	
+					$this->upload->initialize($config);
+					$dir_exist = true; //flag for checking the directory exist or not
 
+					if(!is_dir('assets/images/' . $folder))
+					{
+						mkdir('./assets/images/' . $folder, 0777, true);
+						
+						$dir_exist = false; //dir not exist
+					}
+					// var_dump($_FILES);
+					 // var_dump($this->upload->do_upload());
+					 // var_dump($this->upload->data('file_name'));
+					// 	die($this->upload->display_errors('<p>', '</p>'));
+					if (!$this->upload->do_upload())
+					{
+						//upload failed
+						//delete dir if not exist before upload
+						$typeid = $this->admin->get_type_id_by_name($this->input->post('type'));
+						$typeid2 = $this->admin->get_type_id_by_name($this->input->post('type2'));
+						if($typeid2 == NULL)
+						{
+							$result = $this->admin->update_prod_to_db($this->input->post(),$typeid,"false","false");
+						}
+						else
+						{
+							$result = $this->admin->update_prod_to_db($this->input->post(),$typeid,"false",$typeid2);
+						}
+						if($result != NULL)
+						{
+							$this->session->set_flashdata('msg', 'Something went wrong, please try logging in again.');
+							redirect('/admin/dashboard/products/edit/' . $id);
+						}
+						else
+						{
+							$this->session->set_flashdata('msg', 'Edit Successful!');
+							redirect('/admin/dashboard/products/edit/' . $id);
+						}	
+					}
+					else 
+					{
+						$upload_data = $this->upload->data();
+						$filename = $this->upload->data('file_name');
+
+						$file_to_database = $folder_path. '/' . $filename;
+						$typeid = $this->admin->get_type_id_by_name($this->input->post('type'));
+						$typeid2 = $this->admin->get_type_id_by_name($this->input->post('type2'));
+						if($typeid2 == NULL)
+						{
+							$result = $this->admin->update_prod_to_db($this->input->post(),$typeid,$file_to_database,"false");
+						}
+						else
+						{
+							$result = $this->admin->update_prod_to_db($this->input->post(),$typeid,$file_to_database,$typeid2);	
+						}
+						if($result != NULL)
+						{
+							$this->session->set_flashdata('msg', 'Something went wrong, please try logging in again.');
+							redirect('/admin/dashboard/products/edit/' . $id);
+						}
+						else
+						{
+							$this->session->set_flashdata('msg', 'Edit Successful!');
+							redirect('/admin/dashboard/products/edit/' . $id);
+						}	
+					}
+					
+				}
+			}
+		}
+	}
+	public function add_new_type()
+	{
+		$this->admin->add_type(ucfirst($this->input->post('newtype')));
+		$this->session->set_flashdata('msg', "Added a new Type!");
+		redirect('/admin/dashboard/products/edit/' . $id);
+	}
 }
 
 //end of main controller

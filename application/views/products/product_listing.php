@@ -72,13 +72,14 @@
 					}?>
 				</div>
 					<div id="pagenav" class="col-md-offset-6">
+						<h4>Pages:
 <?php 				if(array_key_exists("type", $frontproductbyprice[0]))
 					{
 						for($i=1; $i<=$pages;$i++)
 						{
 							foreach($getonetype as $key)
 							{?>
-						Page:<a href="/pokemons/<?=$key['id']?>/<?=$i?>"><?=$i?></a>
+							<a href="/pokemons/<?=$key['id']?>/<?=$i?>"><?=$i?></a>
 <?php						}
 						}
 					}
@@ -86,9 +87,9 @@
 					{
 						for($i=1; $i<=$pages;$i++)
 						{?>				
-						Page:<a href="/products/<?=$i?>"><?=$i?></a>
+							<a href="/products/<?=$i?>"><?=$i?></a>
 <?php					}
-					}?>
+					}?></h4>
 					</div>
 			</div>
 		</div>

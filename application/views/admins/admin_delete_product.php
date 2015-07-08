@@ -16,7 +16,6 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<h2>Delete Product</h2>
-				<?php var_dump($product)?>
 				<h3>Are you sure you want to delete this?</h3>
 				<h3>Deleting cannot be undone.</h3>
 				<h3><?= $this->session->flashdata('msg') ?></h3>
@@ -30,7 +29,7 @@
 				<form action="/admin/delete_product/<?= $product['id'] ?>" method="post">
 				  <button type="submit" class="btn btn-danger">Delete</button>
 				</form>
-				<a class="btn btn-link" href="#" role="button">Back</a>
+				<a class="btn btn-link" href="/admin/dashboard/products" role="button">Back</a>
 			</div>
 		</div>
 	</div>
