@@ -7,7 +7,7 @@ class admins extends CI_Controller {
 		parent::__construct();
 		$this->load->model('admin');
 		$this->load->helper(array('form','url'));
-		$this->output->enable_profiler();
+		// $this->output->enable_profiler();
 		$this->load->library('upload');
 	}
 
@@ -116,7 +116,10 @@ class admins extends CI_Controller {
 			$products = array('products' => $result);
 			$this->load->view('admins/admin_products', $products);
 		}
-		redirect('/admin');
+		else
+		{
+			redirect('/admin');
+		}
 	}
 
 	public function edit($id) 
