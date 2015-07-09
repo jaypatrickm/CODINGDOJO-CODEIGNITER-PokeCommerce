@@ -116,6 +116,7 @@ class admins extends CI_Controller {
 			$products = array('products' => $result);
 			$this->load->view('admins/admin_products', $products);
 		}
+		redirect('/admin');
 	}
 
 	public function edit($id) 
