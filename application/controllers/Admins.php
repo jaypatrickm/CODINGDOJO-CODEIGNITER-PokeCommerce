@@ -161,6 +161,11 @@ class admins extends CI_Controller {
 				$this->session->set_flashdata('msg', 'Product form is empty, please fill form before add.');
 				redirect('/admin/dashboard/products/add');
 			} 
+			elseif ($this->input->post('type') == $this->input->post('type2'))
+			{
+				$this->session->set_flashdata('msg', 'Types cannot be the same!');
+				redirect('/admin/dashboard/products/add/');
+			}			
 			else {
 				if ($this->admin->add_validation() == false)
 				{
@@ -302,7 +307,12 @@ class admins extends CI_Controller {
 	}
 	public function deletepicture($picid,$productid)
 	{
-		$this->admin->delete_picture($picid);
+		$result = $this->admin->delete_picture($picid);
+		if ($result == false)
+		{
+			$this->session->set_flashdata('msg', 'You Cannot Delete the main picture!');
+			redirect('admin/dashboard/products/edit/' . $productid);
+		}
 		redirect('admin/dashboard/products/edit/' . $productid);
 	}
 	public function admin_edit_product($id)
@@ -319,6 +329,11 @@ class admins extends CI_Controller {
 				$this->session->set_flashdata('msg', 'Types cannot be the same!');
 				redirect('/admin/dashboard/products/edit/' . $id);
 			}
+			elseif (!$this->input->post('show_image'))
+			{
+				$this->session->set_flashdata('msg', 'Please Select an image to be the main!');
+				redirect('/admin/dashboard/products/edit/' . $id);				
+			}
 			else {
 				if ($this->admin->add_validation() == false)
 				{
@@ -330,6 +345,13 @@ class admins extends CI_Controller {
 				}
 				else 
 				{
+					// Change main image
+					$show_imageid = $this->input->post('show_image');
+					$this->admin->change_main_picture($id,$show_imageid);
+					// var_dump($converted_imageinfo);
+					// die();
+					// Change main image done
+
 					$folder = strtolower($this->input->post('name'));
 					$path = "./assets/images/$folder";
 					$folder_path = "assets/images/$folder";

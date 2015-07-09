@@ -196,7 +196,7 @@
 						?>
 						<label>
 							<img class="pokemon img-thumbnail" src="/<?= $product_image_value['filename'] ?>" alt="pokemon" title="pokemon">	
-							<input class="radio" type="checkbox" checked> 
+							<input class="radio" type="checkbox" checked  name= "show_image"value= "<?= $product_image_value['id'] ?>"> 
 							<a href="/edit/delete/image/<?= $product_image_value['id']?>/<?= $product['id']?>" class="btn btn-link">Delete</a>
 						</label>
 						<?php
@@ -206,7 +206,7 @@
 						?>
 						<label>
 							<img class="pokemon img-thumbnail" src="/<?= $product_image_value['filename'] ?>" alt="pokemon" title="pokemon">	
-							<input class="radio" type="checkbox"> 
+							<input class="radio" type="checkbox" name="show_image" value="<?= $product_image_value['id'] ?>"> 
 							<a href="/edit/delete/image/<?= $product_image_value['id']?>/<?= $product['id'] ?>" class="btn btn-link">Delete</a>
 						</label>
 						<?php

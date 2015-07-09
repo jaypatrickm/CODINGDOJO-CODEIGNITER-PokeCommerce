@@ -171,7 +171,7 @@ class Admin extends CI_Model
 		$result = $this->db->query($query, $values);
 		if($result)
 		{
-			if($this->input->post('type2') != " ")
+			if($this->input->post('type2') != "")
 			{
 				$query = "INSERT INTO product_types (product_id, type_id, created_at, updated_at)
 						  VALUES (?,?, NOW(), NOW())";
@@ -273,8 +273,14 @@ class Admin extends CI_Model
 	}
 	function delete_picture($id)
 	{
+		$selector = $this->db->query("SELECT * FROM images WHERE id = $id")->row_array();	
+		if(isset($selector['main']))
+		{
+			return false;
+		}
 		$query = "DELETE FROM images WHERE id = $id";
 		$this->db->query($query);
+		return true;
 	}
 	function update_prod_to_db($post,$typeidarray,$filename,$typeidarray2)
 	{
@@ -327,6 +333,18 @@ class Admin extends CI_Model
 							VALUES (?,NOW(),NOW())";
 		$values = array($typename);
 		$this->db->query($query,$values);
+	}
+	function change_main_picture($productid,$imageid)
+	{
+		$query = "UPDATE images SET main = ?, updated_at = NOW()
+					WHERE product_id = ?";
+		$values = array(NULL,$productid);
+		$this->db->query($query,$values);
+
+		$query2 = "UPDATE images SET main = ?, updated_at = NOW()
+					WHERE id = ?";
+		$values2 = array('1',$imageid);
+		$this->db->query($query2,$values2);
 	}
 }
 ?>
